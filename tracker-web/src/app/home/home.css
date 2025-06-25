@@ -115,5 +115,5 @@ h2 {
 }
 
 .odd-row td {
-  background-color: red;
+  background-color: red; /* #fafafc */
 }
