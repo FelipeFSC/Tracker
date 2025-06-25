@@ -15,7 +15,7 @@ body {
   --color-secondary: #8F89E6;
   --color-enfase: #e26464;
   --color-success: #A3CC8A;
-  --color-alert: #D9D086;
+  --color-alert: #dcc719;
   --color-background: #C6C8D2;
   --color-text-primary: #2B3036;
   --color-text-secondary: #555E65;
@@ -40,6 +40,12 @@ button.mat-warn {
   background-color: var(--color-success) !important;
   color: white !important;
 }
+
+.alert-button {
+  background-color: var(--color-alert) !important;
+  color: white !important;
+}
+
 
 .mat-icon {
   font-family: 'Material Icons' !important;

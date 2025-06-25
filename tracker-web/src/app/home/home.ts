@@ -57,4 +57,11 @@ export class Home implements AfterViewChecked {
         console.log('Tarefas enviadas:', this.tasks);
         alert('Tarefas enviadas com sucesso!');
     }
+
+    isOpen: boolean = false;
+
+    onOpen() {
+        this.isOpen = !this.isOpen;
+        console.log(this.isOpen);
+    }
 }
