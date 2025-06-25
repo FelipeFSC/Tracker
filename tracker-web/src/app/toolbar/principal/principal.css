@@ -1,0 +1,32 @@
+mat-toolbar {
+    border-bottom: 1px solid white;
+    z-index: 9999 !important;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.exit {
+    cursor: pointer
+}
+
+.header {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 1;
+}
+
+.home{
+    cursor: pointer;
+}
+
+.green {
+    color: green;
+    font-weight: bolder;
+}
+
+.black {
+    color: #000;
+}

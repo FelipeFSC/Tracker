@@ -7,6 +7,7 @@
 }
 
 .app-content {
+  margin-top: 8.7rem;
     padding: 16px;
 }
 
@@ -99,4 +100,12 @@ h2 {
 
 .buttom-radius {
   border-radius: 4px;
+}
+
+
+.expanded-row td {
+  padding: 0;
+}
+.element-row:hover {
+  background: #efefef;
 }

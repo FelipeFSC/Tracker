@@ -1,5 +1,6 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { AfterViewChecked, Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
     selector: 'app-home',
@@ -14,6 +15,39 @@ export class Home implements AfterViewChecked {
     isMobile = false;
 
     tasks: any[] = [];
+
+    displayedColumns: string[] = ['colaborador', 'data', 'acoes'];
+    dataSource: any = [
+        {
+            id: 1,
+            colaborador: "Joao Silva",
+            data: "2025-06-20",
+            horario_inicio: "08:00",
+            horario_termino: "12:00",
+            tipo_atividade: "Manutencao Preventiva",
+            solicitante: "Carlos Mendes",
+            os: "OS12345",
+            observacoes: "Equipamento funcionando normalmente apos manutencao."
+        },
+        {
+            id: 2,
+            colaborador: "Maria Oliveira",
+            data: "2025-06-21",
+            horario_inicio: "13:00",
+            horario_termino: "17:00",
+            tipo_atividade: "Reparo",
+            solicitante: "Ana Souza",
+            os: "OS12346",
+            observacoes: "Troca de componente danificado."
+        },
+        // Adicione mais registros se desejar
+    ];
+
+    expandedElement: any | null = null;
+
+    toggleRow(element: any) {
+        this.expandedElement = this.expandedElement === element ? null : element;
+    }
 
     constructor(private breakpointObserver: BreakpointObserver) {
         this.breakpointObserver

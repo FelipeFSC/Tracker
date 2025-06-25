@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common'
 import { HomeRoutingModule } from './home-routing-module'
 import { Home } from './home'
 import { MaterialModule } from '../material/material.module'
+import { ToolbarModule } from '../toolbar/toolbar-module'
 
 @NgModule({
     declarations: [
@@ -12,7 +13,8 @@ import { MaterialModule } from '../material/material.module'
     imports: [
         CommonModule,
         HomeRoutingModule,
-        MaterialModule
+        MaterialModule,
+        ToolbarModule,
     ]
 })
 export class HomeModule { }

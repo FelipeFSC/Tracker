@@ -94,7 +94,7 @@ import {MatTreeModule} from '@angular/material/tree';
 		MatNativeDateModule,
 		ReactiveFormsModule,
 		MatTreeModule,
-		FormsModule
+		FormsModule,
 	],
 	providers: [
 		{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
