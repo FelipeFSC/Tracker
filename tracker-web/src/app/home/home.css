@@ -103,9 +103,17 @@ h2 {
 }
 
 
-.expanded-row td {
-  padding: 0;
-}
 .element-row:hover {
-  background: #efefef;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+
+
+.even-row td {
+  background-color: #ffffff;
+}
+
+.odd-row td {
+  background-color: red;
 }

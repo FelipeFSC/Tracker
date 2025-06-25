@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
     selector: 'app-home',
     templateUrl: './home.html',
     styleUrl: './home.css',
-    standalone: false
+    standalone: false,
 })
 export class Home implements AfterViewChecked {
 
@@ -40,10 +40,27 @@ export class Home implements AfterViewChecked {
             os: "OS12346",
             observacoes: "Troca de componente danificado."
         },
+        {
+            id: 3,
+            colaborador: "Maria Oliveira",
+            data: "2025-06-21",
+            horario_inicio: "13:00",
+            horario_termino: "17:00",
+            tipo_atividade: "Reparo",
+            solicitante: "Ana Souza",
+            os: "OS12346",
+            observacoes: "Troca de componente danificado."
+        },
         // Adicione mais registros se desejar
     ];
 
     expandedElement: any | null = null;
+
+    isEven(index: number): boolean {
+        index = index + 1;
+        console.log(index + "");
+        return index % 2 === 0;
+    }
 
     toggleRow(element: any) {
         this.expandedElement = this.expandedElement === element ? null : element;
