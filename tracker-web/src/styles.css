@@ -1,4 +1,58 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+:root {
+  --color-primary: #7A9CE6;
+  --color-secondary: #8F89E6;
+  --color-enfase: #e26464;
+  --color-success: #A3CC8A;
+  --color-alert: #D9D086;
+  --color-background: #C6C8D2;
+  --color-text-primary: #2B3036;
+  --color-text-secondary: #555E65;
+}
+
+button.mat-primary {
+  background-color: var(--color-primary) !important;
+  color: white !important;
+}
+
+button.mat-accent {
+  background-color: var(--color-secondary) !important;
+  color: white !important;
+}
+
+button.mat-warn {
+  background-color: var(--color-enfase) !important;
+  color: white !important;
+}
+
+.save-button {
+  background-color: var(--color-success) !important;
+  color: white !important;
+}
+
+.mat-icon {
+  font-family: 'Material Icons' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* suporte a ligaduras */
+  -webkit-font-smoothing: antialiased;
+}

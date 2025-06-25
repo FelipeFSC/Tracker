@@ -1,75 +1,98 @@
 <ng-container *ngIf="isMobile; else desktopLayout">
-    <!-- Layout mobile com sidenav -->
-    <mat-sidenav-container class="app-container">
-        <mat-sidenav #sidenav mode="over" class="app-sidenav">
-            <mat-nav-list>
-                <a mat-list-item routerLink="/" (click)="sidenav.close()">🏠 Início</a>
-                <a mat-list-item routerLink="/about" (click)="sidenav.close()">ℹ️ Sobre</a>
-            </mat-nav-list>
-        </mat-sidenav>
+	<!-- Layout mobile com sidenav -->
+	<mat-sidenav-container class="app-container">
+		<mat-sidenav #sidenav mode="over" class="app-sidenav">
+			<mat-nav-list>
+				<a mat-list-item routerLink="/" (click)="sidenav.close()">Início</a>
+				<a mat-list-item routerLink="/about" (click)="sidenav.close()">Sobre</a>
+			</mat-nav-list>
+		</mat-sidenav>
 
-        <mat-sidenav-content>
-            <mat-toolbar color="primary">
-                <button mat-icon-button (click)="sidenav.toggle()">
-                    <mat-icon>menu</mat-icon>
-                </button>
-                <span>Meu App</span>
-            </mat-toolbar>
+		<mat-sidenav-content>
+			<mat-toolbar color="primary">
+				<button mat-icon-button (click)="sidenav.toggle()">
+					<mat-icon>menu</mat-icon>
+				</button>
+				<span>Meu App</span>
+			</mat-toolbar>
 
-            <div class="app-content">
-                <router-outlet></router-outlet>
+			<div class="app-content">
+				<router-outlet></router-outlet>
 
-                <div class="app-content">
-                    <div class="form-container">
-  <form (ngSubmit)="enviarFormulario()">
-    <h2>Tracker</h2>
+				<div class="app-content">
 
-    <div id="tasks-container">
-      <div class="grouped-fields" *ngFor="let task of tasks; let i = index">
-        <div class="form-row">
-          <mat-form-field appearance="fill">
-            <mat-label>Data Início</mat-label>
-            <input matInput type="date" [(ngModel)]="task.dataInicio" name="dataInicio-{{ i }}" required>
-          </mat-form-field>
+					<div class="form-container">
+						<form (ngSubmit)="enviarFormulario()">
+							<h2>Tracker</h2>
 
-          <mat-form-field appearance="fill">
-            <mat-label>Data Fim</mat-label>
-            <input matInput type="date" [(ngModel)]="task.dataFim" name="dataFim-{{ i }}" required>
-          </mat-form-field>
+							<div id="tasks-container">
+								<div class="grouped-fields" *ngFor="let task of tasks; let i = index" #lastTask>
+									<div class="form-row">
+										<mat-form-field appearance="fill">
+											<mat-label>Hora Início</mat-label>
+											<input matInput type="time" [(ngModel)]="task.horaInicio"
+												name="horaInicio-{{ i }}" required>
+										</mat-form-field>
 
-          <button mat-raised-button color="primary" type="button">
-            Abrir
-          </button>
-        </div>
-      </div>
-    </div>
+										<mat-form-field appearance="fill">
+											<mat-label>Hora Fim</mat-label>
+											<input matInput type="time" [(ngModel)]="task.horaFim"
+												name="horaFim-{{ i }}" required>
+										</mat-form-field>
+									</div>
+									<div>
+										<mat-form-field class="example-full-width" style="width: 100%;">
+											<mat-label>Descrição</mat-label>
+											<textarea matInput placeholder="" [(ngModel)]="task.descricao" name="descricao"></textarea>
+										</mat-form-field>
+									</div>
 
-    <div class="actions">
-      <button mat-raised-button color="accent" type="button" (click)="adicionarTarefa()">
-        + Adicionar Tarefa
-      </button>
-    </div>
+									<div class="form-actions">
+										<button mat-raised-button color="warn" type="button"
+											class="buttom-radius action-buttom" (click)="removerTarefa(i)">
+											Deletar
+										</button>
+										<button mat-raised-button color="primary" type="button"
+											class="buttom-radius action-buttom">
+											Abrir
+										</button>
+									</div>
+								</div>
+							</div>
 
-    <button mat-raised-button color="primary" type="submit">Salvar</button>
-  </form>
-</div>
-                </div>
-            </div>
-        </mat-sidenav-content>
-    </mat-sidenav-container>
+
+							<div class="actions">
+								<button mat-raised-button color="accent" type="button" class="buttom-radius"
+									(click)="adicionarTarefa()">
+									+ Add tarefa
+								</button>
+							</div>
+
+							<div class="actions">
+								<button mat-raised-button class="save-buttom buttom-radius save-button"
+									type="submit">Salvar</button>
+							</div>
+
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</mat-sidenav-content>
+	</mat-sidenav-container>
 </ng-container>
 
 <ng-template #desktopLayout>
-    <!-- Layout desktop com menu horizontal -->
-    <mat-toolbar color="primary">
-        <span>Meu App</span>
-        <span class="spacer"></span>
-        <a mat-button routerLink="/">🏠 Início</a>
-        <a mat-button routerLink="/about">ℹ️ Sobre</a>
-    </mat-toolbar>
+	<!-- Layout desktop com menu horizontal -->
+	<mat-toolbar color="primary">
+		<span>Meu App</span>
+		<span class="spacer"></span>
+		<a mat-button routerLink="/">🏠 Início</a>
+		<a mat-button routerLink="/about">ℹ️ Sobre</a>
+	</mat-toolbar>
 
-    <div class="app-content">
-        <router-outlet></router-outlet>
-        xxxxxxxxxxxxxxxxxxxxxxxxx
-    </div>
+	<div class="app-content">
+		<router-outlet></router-outlet>
+		xxxxxxxxxxxxxxxxxxxxxxxxx
+	</div>
 </ng-template>
