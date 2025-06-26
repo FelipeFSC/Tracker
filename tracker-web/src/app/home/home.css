@@ -7,7 +7,7 @@
 }
 
 .app-content {
-  margin-top: 8.7rem;
+    margin-top: 8.7rem;
     padding: 16px;
 }
 
@@ -99,21 +99,64 @@ h2 {
 }
 
 .buttom-radius {
-  border-radius: 4px;
-}
-
-
-.element-row:hover {
-  background-color: #f0f0f0;
-  cursor: pointer;
+    border-radius: 4px;
 }
 
 
 
-.even-row td {
+
+
+
+
+
+.custom-table {
+  display: grid;
+  grid-template-columns: 2fr 1fr 0.5fr;
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Cabeçalho */
+.header-row {
+  display: contents;
+}
+
+.header-cell {
+  padding: 16px 12px;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+/* Linhas principais */
+.data-row {
+  display: contents;
+}
+
+.cell {
+  padding: 16px 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+}
+
+/* Zebra */
+.zebra-a > .cell {
+  background-color:  #fafafc;
+}
+
+.zebra-b > .cell {
   background-color: #ffffff;
 }
 
-.odd-row td {
-  background-color: red; /* #fafafc */
+/* Linha expandida ocupa todas as colunas */
+.expanded-row {
+  grid-column: 1 / -1;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+/* Hover */
+.cell:hover {
+  background-color: #e0e0e0;
+  cursor: pointer;
 }
