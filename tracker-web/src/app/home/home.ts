@@ -7,76 +7,75 @@ import { Component } from '@angular/core';
     styleUrl: './home.css'
 })
 export class Home {
-    /*
-    dataSource: any = [
+
+    columns = [
+        { key: 'name', label: 'Nome' },
+        { key: 'email', label: 'Email' },
+    ];
+
+    expandedColumns = [
+        { key: 'hrInicio', label: 'H. inicio' },
+        { key: 'hrFim', label: 'H. Término' },
+        { key: 'atividade', label: 'Tipo atividade' },
+        { key: 'solicitante', label: 'Solicitante' },
+        { key: 'os', label: 'OS' },
+        { key: 'obs', label: 'Observações' },
+    ];
+
+    rows = [
         {
             id: 1,
-            colaborador: "Joao Silva",
-            data: "2025-06-20",
-            horario_inicio: "08:00",
-            horario_termino: "12:00",
-            tipo_atividade: "Manutencao Preventiva",
-            solicitante: "Carlos Mendes",
-            os: "OS12345",
-            observacoes: "Equipamento funcionando normalmente apos manutencao."
+            name: 'João',
+            email: 'joao@email.com',
+            status: 'success',
+            details: [
+                {
+                    hrInicio: '10:00',
+                    hrFim: '11:00',
+                    atividade: 'Desenvolvimento',
+                    solicitante: 'Coca Cola'
+                },
+            ],
         },
         {
             id: 2,
-            colaborador: "Maria Oliveira",
-            data: "2025-06-21",
-            horario_inicio: "13:00",
-            horario_termino: "17:00",
-            tipo_atividade: "Reparo",
-            solicitante: "Ana Souza",
-            os: "OS12346",
-            observacoes: "Troca de componente danificado."
+            name: 'PEDRO',
+            email: 'PEDRO@email.com',
+            status: 'success',
+            details: [
+                { campo: 'Idade', valor: 30 },
+            ],
         },
-        {
-            id: 3,
-            colaborador: "Maria Oliveira",
-            data: "2025-06-21",
-            horario_inicio: "13:00",
-            horario_termino: "17:00",
-            tipo_atividade: "Reparo",
-            solicitante: "Ana Souza",
-            os: "OS12346",
-            observacoes: "Troca de componente danificado."
-        },
-        // Adicione mais registros se desejar
+        // outros dados...
     ];
 
-    expandedElement: any | null = null;
+    actionsButton = { icon: 'more_vert', label: '' };
 
-    toggleRow(element: any) {
-        this.expandedElement = this.expandedElement === element ? null : element;
+    actionsMenu = [
+        {
+            icon: 'edit',
+            label: 'Editar',
+        },
+        {
+            icon: 'delete',
+            label: 'Excluir',
+        }
+    ];
+
+
+    handleTableAction(event: { label: string, row: any }) {
+        switch (event.label) {
+            case 'Editar':
+                //this.editar(event.row);
+                console.log("EDITAR " + event.row);
+                break;
+            case 'Excluir':
+                //this.excluir(event.row);
+                console.log("DELETAR "+ event.row);
+                break;
+            default:
+                console.warn('Ação não reconhecida:', event.label);
+        }
     }
-    */
-
-    columns = [
-  { key: 'name', label: 'Nome' },
-  { key: 'email', label: 'Email' }
-];
-
-rows = [
-  {
-    id: 1,
-    name: 'João',
-    email: 'joao@email.com',
-    details: [
-      { label: 'Projeto', value: 'Angular Migration' },
-      { label: 'Status', value: 'Em progresso' }
-    ]
-  },
-  {
-    id: 2,
-    name: 'Maria',
-    email: 'maria@email.com',
-    details: [
-      { label: 'Projeto', value: 'Design System' },
-      { label: 'Status', value: 'Finalizado' }
-    ]
-  }
-];
-
 
 }

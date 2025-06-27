@@ -4,10 +4,10 @@
 
 <div class="app-content">
 
-    <app-table-expand
-        [columns]="columns"
-        [data]="rows">
+    <app-table-expand [columns]="columns" [data]="rows" [expandedColumns]="expandedColumns"
+        [actionsButton]="actionsButton" [actionsMenu]="actionsMenu" (actionClicked)="handleTableAction($event)">
     </app-table-expand>
+
 
 
 

@@ -1,27 +1,125 @@
+/* === TABELA PRINCIPAL === */
 .table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
+    font-family: 'Roboto', sans-serif;
 }
 
-.table th,
+/* Cabeçalho */
+thead tr {
+    background-color: #f4f4fb !important;
+}
+
+.table th {
+    padding: 12px;
+    text-align: left;
+    font-weight: normal !important;
+    font-size: 14px;
+}
+
+/* Zebra: começa branco, depois #fafafc */
+.table tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.table tr:nth-child(even) {
+    background-color: #fafafc;
+}
+
+/* Células */
 .table td {
-    border: 1px solid #ddd;
-    padding: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Coluna de expandir */
+.col-expand {
+    width: 40px;
+    text-align: center;
+}
+
+/* Coluna de status */
+.col-status {
+    width: 30px;
+    text-align: center;
+}
+
+/* Coluna de dados */
+.col-data {
     text-align: left;
 }
 
-.expanded-row {
+/* Coluna de ações */
+.col-actions {
+    width: 120px;
+    text-align: right;
+    /* Nenhum estilo forçado aqui — deixar o Angular Material cuidar */
+}
+
+/* Bolinha de status */
+.status-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.status-dot.success {
+    background-color: #4caf50;
+}
+
+.status-dot.error {
+    background-color: #f44336;
+}
+
+.status-dot.alert {
+    background-color: #ff9800;
+}
+
+/* Linha expandida */
+.expanded-row td {
     background-color: #f9f9f9;
+    padding: 0;
+}
+
+.expanded-container {
+    padding: 0 !important;
+}
+
+/* Tabela interna (dentro da expansão) */
+.inner-table-wrapper {
+  padding: 20px;
+  overflow-x: auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .inner-table {
-    background-color: #fff;
-    width: 100%;
-    border: 1px solid #ccc;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  table-layout: fixed;
+  margin: 0;
+}
+
+/* Cabeçalho da tabela interna */
+.inner-table thead {
+  background-color: #f4f4fb;
 }
 
 .inner-table th,
 .inner-table td {
-    border: 1px solid #ddd;
-    padding: 6px;
+  padding: 10px;
+  border: none;
+  font-weight: normal;
+  font-size: 13px;
+  text-align: left;
 }
+
+/* Zebra */
+

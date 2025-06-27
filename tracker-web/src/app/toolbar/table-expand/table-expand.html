@@ -1,48 +1,80 @@
-<table class="table">
-    <thead>
-        <tr>
-            <th></th> <!-- Botão expandir -->
-            <ng-container *ngFor="let col of columns">
-                <th>{{ col.label }}</th>
-            </ng-container>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        <ng-container *ngFor="let row of data">
+<mat-card style="padding: 10px; margin: auto; max-width: 1000px;">
+
+    <table class="table main-table">
+        <thead>
             <tr>
-                <td>
-                    <button (click)="toggleRow(row.id)">
-                        {{ expandedRowId === row.id ? '−' : '+' }}
-                    </button>
-                </td>
+                <th class="col-expand"></th>
+                <th class="col-status"></th>
                 <ng-container *ngFor="let col of columns">
-                    <td>{{ row[col.key] }}</td>
+                    <th class="col-data">{{ col.label }}</th>
                 </ng-container>
-                <td>
-                    <!-- Aqui você pode colocar outras ações 
-          <button (click)="alert('Ação para ' + row.name)">Ação</button>-->
-                </td>
+                <th class="col-actions">{{ actionsButton.label }}</th>
             </tr>
-            <tr *ngIf="expandedRowId === row.id" class="expanded-row">
-                <td [attr.colspan]="columns.length + 2">
-                    <!-- Tabela interna -->
-                    <table class="table inner-table">
-                        <thead>
-                            <tr>
-                                <th>Campo</th>
-                                <th>Valor</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of row.details">
-                                <td>{{ item.label }}</td>
-                                <td>{{ item.value }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-        </ng-container>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let row of data">
+                <tr (click)="onRowClick($event, row.id)">
+                    <!-- Botão expandir -->
+                    <td class="col-expand">
+                        <mat-icon>
+                            {{ expandedRowId === row.id ? 'expand_less' : 'expand_more' }}
+                        </mat-icon>
+                    </td>
+
+                    <!-- Bolinha de status -->
+                    <td class="col-status">
+                        <span class="status-dot" [ngClass]="row.status"></span>
+                    </td>
+
+                    <!-- Colunas de dados -->
+                    <ng-container *ngFor="let col of columns">
+                        <td class="col-data">{{ row[col.key] }}</td>
+                    </ng-container>
+
+                    <!-- Botão de ações -->
+                    <td class="col-actions">
+                        <button matIconButton [matMenuTriggerFor]="actionsMenuRef"
+                            (click)="openMenuForRow(row); $event.stopPropagation()">
+                            <mat-icon>{{ actionsButton.icon }}</mat-icon> {{ actionsButton.label }}
+                        </button>
+                    </td>
+                </tr>
+
+                <!-- Linha expandida -->
+                <tr *ngIf="expandedRowId === row.id" class="expanded-row">
+                    <td class="expanded-container" [attr.colspan]="columns.length + 3">
+                        <div class="inner-table-wrapper">
+                            <table class="table inner-table">
+                                <thead>
+                                    <tr>
+                                        <ng-container *ngFor="let col of expandedColumns">
+                                            <th>{{ col.label }}</th>
+                                        </ng-container>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of row[expandedDataKey]">
+                                        <ng-container *ngFor="let col of expandedColumns">
+                                            <td>{{ item[col.key] }}</td>
+                                        </ng-container>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+
+            </ng-container>
+        </tbody>
+    </table>
+
+    <mat-menu #actionsMenuRef="matMenu">
+        <button mat-menu-item *ngFor="let action of actionsMenu"
+            (click)="onActionClick(action.label, selectedRowForMenu)">
+            <mat-icon>{{ action.icon }}</mat-icon>
+            <span>{{ action.label }}</span>
+        </button>
+    </mat-menu>
+
+
+</mat-card>
