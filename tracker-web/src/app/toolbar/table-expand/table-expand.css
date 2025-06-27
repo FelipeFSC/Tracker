@@ -93,33 +93,40 @@ thead tr {
 
 /* Tabela interna (dentro da expansão) */
 .inner-table-wrapper {
-  padding: 20px;
-  overflow-x: auto;
-  width: 100%;
-  box-sizing: border-box;
+    padding: 0px 20px 20px 20px;
+    overflow-x: auto;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .inner-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-  table-layout: fixed;
-  margin: 0;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    table-layout: fixed;
+    margin: 0;
 }
 
 /* Cabeçalho da tabela interna */
 .inner-table thead {
-  background-color: #f4f4fb;
+    background-color: #f4f4fb;
 }
 
 .inner-table th,
 .inner-table td {
-  padding: 10px;
-  border: none;
-  font-weight: normal;
-  font-size: 13px;
-  text-align: left;
+    padding: 10px;
+    border: none;
+    font-weight: normal;
+    font-size: 13px;
+    text-align: left;
 }
 
 /* Zebra */
 
+.row-white {
+  background-color: #ffffff;
+}
+
+.row-alt {
+  background-color: #fafafc;
+}

@@ -35,6 +35,18 @@ export class Home {
                     atividade: 'Desenvolvimento',
                     solicitante: 'Coca Cola'
                 },
+                {
+                    hrInicio: '11:00',
+                    hrFim: '13:00',
+                    atividade: 'Desenvolvimento',
+                    solicitante: 'Coca Cola'
+                },
+                {
+                    hrInicio: '13:00',
+                    hrFim: '16:00',
+                    atividade: 'Desenvolvimento',
+                    solicitante: 'Coca Cola'
+                },
             ],
         },
         {
@@ -43,7 +55,10 @@ export class Home {
             email: 'PEDRO@email.com',
             status: 'success',
             details: [
-                { campo: 'Idade', valor: 30 },
+                {
+                    hrInicio: '10:00',
+                    hrFim: '11:00',
+                },
             ],
         },
         // outros dados...

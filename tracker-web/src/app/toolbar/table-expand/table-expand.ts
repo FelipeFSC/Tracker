@@ -18,7 +18,7 @@ export class TableExpand {
     @Input() expandedDataKey: string = 'details'; // padrão para retrocompatibilidade
 
 
-    expandedRowId: any = null;
+    expandedRowIds: any[] = [];
 
     selectedRowForMenu: any = null;
 
@@ -31,7 +31,12 @@ export class TableExpand {
     }
 
     toggleRow(id: any) {
-        this.expandedRowId = this.expandedRowId === id ? null : id;
+        const index = this.expandedRowIds.indexOf(id);
+        if (index > -1) {
+            this.expandedRowIds.splice(index, 1); // já está expandido → fecha
+        } else {
+            this.expandedRowIds.push(id); // ainda não está expandido → abre
+        }
     }
 
     onRowClick(event: MouseEvent, id: any) {
