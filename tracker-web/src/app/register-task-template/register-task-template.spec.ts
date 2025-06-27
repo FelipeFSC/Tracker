@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Navigation } from './navigation';
+import { RegisterTaskTemplate } from './register-task-template';
 
-describe('Navigation', () => {
-  let component: Navigation;
-  let fixture: ComponentFixture<Navigation>;
+describe('RegisterTaskTemplate', () => {
+  let component: RegisterTaskTemplate;
+  let fixture: ComponentFixture<RegisterTaskTemplate>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [Navigation]
+      declarations: [RegisterTaskTemplate]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Navigation);
+    fixture = TestBed.createComponent(RegisterTaskTemplate);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

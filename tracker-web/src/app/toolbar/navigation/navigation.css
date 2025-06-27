@@ -4,7 +4,7 @@ mat-toolbar {
     z-index: 9999 !important;
 }
 
-.header {
+header {
     position: fixed;
     top: 3.5rem;
     width: 100%;

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from '../material/material.module';
 import { Principal } from './principal/principal';
 import { Navigation } from './navigation/navigation';
+import { MaterialModule } from '../material/material-module';
 
 @NgModule({
     declarations: [
         Principal,
-        Navigation
+        Navigation,
     ],
     imports: [
         CommonModule,
@@ -15,7 +15,7 @@ import { Navigation } from './navigation/navigation';
     ],
     exports: [
         Principal,
-        Navigation
+        Navigation,
     ]
 })
 export class ToolbarModule { }

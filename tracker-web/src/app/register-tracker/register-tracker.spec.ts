@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Navigation } from './navigation';
+import { RegisterTracker } from './register-tracker';
 
-describe('Navigation', () => {
-  let component: Navigation;
-  let fixture: ComponentFixture<Navigation>;
+describe('RegisterTracker', () => {
+  let component: RegisterTracker;
+  let fixture: ComponentFixture<RegisterTracker>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [Navigation]
+      declarations: [RegisterTracker]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Navigation);
+    fixture = TestBed.createComponent(RegisterTracker);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
