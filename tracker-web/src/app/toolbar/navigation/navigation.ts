@@ -13,6 +13,7 @@ export class Navigation {
         private router: Router,
     ) { }
 
+
     onHome() {
         this.router.navigate(['home']);
     }
@@ -24,6 +25,4 @@ export class Navigation {
     onTaskTemplate() {
         this.router.navigate(['task-template']);
     }
-
-
 }

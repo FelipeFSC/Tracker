@@ -3,19 +3,22 @@ import { CommonModule } from '@angular/common';
 import { Principal } from './principal/principal';
 import { Navigation } from './navigation/navigation';
 import { MaterialModule } from '../material/material-module';
+import { TableExpand } from './table-expand/table-expand';
 
 @NgModule({
     declarations: [
-        Principal,
         Navigation,
+        Principal,
+        TableExpand,
     ],
     imports: [
         CommonModule,
         MaterialModule
     ],
     exports: [
-        Principal,
         Navigation,
+        Principal,
+        TableExpand
     ]
 })
 export class ToolbarModule { }

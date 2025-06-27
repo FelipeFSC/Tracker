@@ -1,0 +1,48 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th></th> <!-- Botão expandir -->
+            <ng-container *ngFor="let col of columns">
+                <th>{{ col.label }}</th>
+            </ng-container>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let row of data">
+            <tr>
+                <td>
+                    <button (click)="toggleRow(row.id)">
+                        {{ expandedRowId === row.id ? '−' : '+' }}
+                    </button>
+                </td>
+                <ng-container *ngFor="let col of columns">
+                    <td>{{ row[col.key] }}</td>
+                </ng-container>
+                <td>
+                    <!-- Aqui você pode colocar outras ações 
+          <button (click)="alert('Ação para ' + row.name)">Ação</button>-->
+                </td>
+            </tr>
+            <tr *ngIf="expandedRowId === row.id" class="expanded-row">
+                <td [attr.colspan]="columns.length + 2">
+                    <!-- Tabela interna -->
+                    <table class="table inner-table">
+                        <thead>
+                            <tr>
+                                <th>Campo</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of row.details">
+                                <td>{{ item.label }}</td>
+                                <td>{{ item.value }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </ng-container>
+    </tbody>
+</table>

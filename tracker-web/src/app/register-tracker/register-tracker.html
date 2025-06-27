@@ -3,7 +3,6 @@
 
 <ng-container *ngIf="isMobile; else desktopLayout">
     <app-principal [title]="'Meu Tracker'"></app-principal>
-    <app-navigation></app-navigation>
 
     <div class="app-content">
         <div class="form-container">
@@ -96,4 +95,5 @@
 
 
 <ng-template #desktopLayout>
+    <h1> TABELA WEB </h1>
 </ng-template>

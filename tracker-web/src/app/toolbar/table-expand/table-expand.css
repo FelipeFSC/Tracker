@@ -1,0 +1,27 @@
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.expanded-row {
+    background-color: #f9f9f9;
+}
+
+.inner-table {
+    background-color: #fff;
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
+.inner-table th,
+.inner-table td {
+    border: 1px solid #ddd;
+    padding: 6px;
+}
