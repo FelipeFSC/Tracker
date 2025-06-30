@@ -2,8 +2,6 @@
 <app-navigation></app-navigation>
 
 <ng-container *ngIf="isMobile; else desktopLayout">
-    <app-principal [title]="'Meu Tracker'"></app-principal>
-
     <div class="app-content">
         <div class="form-container">
             <form (ngSubmit)="enviarFormulario()">
