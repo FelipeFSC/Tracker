@@ -32,7 +32,7 @@ export class RegisterTracker {
         }
     }
 
-    adicionarTarefa() {
+    addTask() {
         const agora = new Date();
         const horaAtual = agora.toTimeString().slice(0, 5); // "HH:mm"
 
@@ -55,11 +55,11 @@ export class RegisterTracker {
         this.isOpen = !this.isOpen;
     }
 
-    removerTarefa(index: number) {
+    removeTask(index: number) {
         this.tasks.splice(index, 1);
     }
 
-    enviarFormulario() {
+    sendForm() {
         console.log('Tarefas enviadas:', this.tasks);
         alert('Tarefas enviadas com sucesso!');
     }

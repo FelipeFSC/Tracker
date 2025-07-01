@@ -40,6 +40,17 @@ body {
     margin-bottom: 20px;
 }
 
+.form-container-desktop {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    width: 95%;
+    max-width: 80%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
 h2 {
     margin-bottom: 20px;
     font-size: 22px;
@@ -81,6 +92,12 @@ h2 {
     margin-top: 12px;
 }
 
+.actions-end {
+    display: flex;
+    justify-content: end;
+    margin-top: 12px;
+}
+
 .action-buttom {
     width: 45%;
 }
@@ -91,4 +108,5 @@ h2 {
 
 .buttom-radius {
     border-radius: 4px;
+    padding-inline: 10px;
 }

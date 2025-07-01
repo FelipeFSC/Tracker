@@ -5,13 +5,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MaterialModule } from './material/material-module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToolbarModule } from './toolbar/toolbar-module';
-import { TaskTemplate } from './task-template/task-template';
 
 
 @NgModule({
     declarations: [
         App,
-        TaskTemplate,
     ],
     imports: [
         AppRoutingModule,

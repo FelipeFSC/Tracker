@@ -4,7 +4,7 @@
 <ng-container *ngIf="isMobile; else desktopLayout">
     <div class="app-content">
         <div class="form-container">
-            <form (ngSubmit)="enviarFormulario()">
+            <form (ngSubmit)="sendForm()">
                 <h2>Tracker</h2>
 
                 <div id="tasks-container">
@@ -54,7 +54,7 @@
                         </ng-container>
                         <div class="form-actions">
                             <button mat-raised-button color="warn" type="button" class="buttom-radius action-buttom"
-                                (click)="removerTarefa(i)">
+                                (click)="removeTask(i)">
                                 Deletar
                             </button>
 
@@ -77,8 +77,8 @@
 
                 <div class="actions">
                     <button mat-raised-button color="accent" type="button" class="buttom-radius"
-                        (click)="adicionarTarefa()">
-                        + Add tarefa
+                        (click)="addTask()">
+                        Nova Tarefa
                     </button>
                 </div>
 
@@ -93,5 +93,81 @@
 
 
 <ng-template #desktopLayout>
-    <h1> TABELA WEB </h1>
+    <div class="app-content">
+        <div class="form-container-desktop">
+            <form (ngSubmit)="sendForm()">
+                <h2>Tracker</h2>
+
+                <div id="tasks-container">
+                    <div class="grouped-fields" *ngFor="let task of tasks; let i = index" #lastTask>
+                        <div class="form-row" *ngIf="!isOpen">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Hora Início</mat-label>
+                                <input matInput type="time" [(ngModel)]="task.horaInicio" name="horaInicio-{{ i }}"
+                                    required>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>Hora Fim</mat-label>
+                                <input matInput type="time" [(ngModel)]="task.horaFim" name="horaFim-{{ i }}" required>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>Tipo de atividade</mat-label>
+                                <mat-select>
+                                    <mat-option value="option">Tarefa</mat-option>
+                                    <mat-option value="option">Reunião</mat-option>
+                                    <mat-option value="option">Almoço</mat-option>
+                                    <mat-option value="option">Férias</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>Solicitante</mat-label>
+                                <mat-select>
+                                    <mat-option value="option">Coca cola</mat-option>
+                                    <mat-option value="option">Itau</mat-option>
+                                    <mat-option value="option">Bradesco</mat-option>
+                                    <mat-option value="option">Xuxa</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>OS</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+                            
+                        </div>
+                        <div class="form-row" *ngIf="!isOpen">
+                            <mat-form-field class="full-width">
+                                <mat-label>Observações</mat-label>
+                                <textarea matInput rows="1" placeholder="" [(ngModel)]="task.descricao"
+                                    name="descricao"></textarea>
+                            </mat-form-field>
+                        </div>
+                            
+                        <div class="actions-end">
+                            <button mat-raised-button color="warn" type="button" class="buttom-radius"
+                                (click)="removeTask(i)">
+                                Deletar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="actions">
+                    <button mat-raised-button color="accent" type="button" class="buttom-radius"
+                        (click)="addTask()">
+                        Nova Tarefa
+                    </button>
+                </div>
+
+                <div class="actions-end">
+                    <button mat-raised-button class="buttom-radius save-button" type="submit">Salvar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
 </ng-template>
