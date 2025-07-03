@@ -110,3 +110,62 @@ h2 {
     border-radius: 4px;
     padding-inline: 10px;
 }
+
+.form-container-desktop {
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 24px auto;
+}
+
+.grouped-fields-desktop {
+    background-color: #f9f9fc;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row-desktop {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.form-row-desktop mat-form-field {
+    flex: 1 1 45%;
+    min-width: 200px;
+}
+
+.form-row-desktop .full-width {
+    flex: 1 1 100%;
+}
+
+.form-actions-desktop {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.action-buttom-desktop {
+    min-width: 120px;
+    padding: 8px 16px;
+    border-radius: 4px;
+}
+
+.actions-desktop {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.save-button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    min-width: 140px;
+}
