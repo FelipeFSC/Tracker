@@ -4,7 +4,7 @@
 <ng-container *ngIf="isMobile; else desktopLayout">
     <div class="app-content">
         <div class="form-container">
-            <form (ngSubmit)="sendForm()">
+            <form (ngSubmit)="onSave()">
                 <h2>Tracker</h2>
 
                 <div id="tasks-container">
@@ -55,7 +55,7 @@
                         <div class="form-actions">
                             <button mat-raised-button color="warn" type="button" class="buttom-radius action-buttom"
                                 (click)="removeTask(i)">
-                                Deletar
+                                Remover
                             </button>
 
                             <ng-container *ngIf="!isOpen">
@@ -77,7 +77,7 @@
 
                 <div class="actions">
                     <button mat-raised-button color="accent" type="button" class="buttom-radius" (click)="addTask()">
-                        Nova Tarefa
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
                     </button>
                 </div>
 
@@ -94,7 +94,7 @@
 <ng-template #desktopLayout>
     <div class="app-content">
         <div class="form-container-desktop">
-            <form (ngSubmit)="sendForm()">
+            <form (ngSubmit)="onSave()">
                 <h2>Tracker</h2>
 
                 <div id="tasks-container">
@@ -154,18 +154,18 @@
                             </mat-form-field>
                         </div>
 
-                        <!-- Linha 5: Deletar -->
+                        <!-- Linha 5: Remover -->
                         <div class="form-actions-desktop">
                             <button mat-raised-button color="warn" type="button" class="action-buttom-desktop"
                                 (click)="removeTask(i)">
-                                Deletar
+                                Remover
                             </button>
                         </div>
                     </div>
                 </div>
 
                 <button mat-raised-button color="accent" type="button" class="buttom-radius" (click)="addTask()">
-                    Nova Tarefa
+                    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="add"></mat-icon>
                 </button>
                 <!-- Botões principais -->
                 <div class="actions-desktop">

@@ -25,6 +25,10 @@ export class RegisterTracker {
             });
     }
 
+    ngOnInit() {
+        this.addTask();
+    }
+
     ngAfterViewChecked() {
         if (this.lastTasks && this.lastTasks.length > 0) {
             const lastTaskElement = this.lastTasks.last.nativeElement;
@@ -33,21 +37,21 @@ export class RegisterTracker {
     }
 
     addTask() {
-        const agora = new Date();
-        const horaAtual = agora.toTimeString().slice(0, 5); // "HH:mm"
+        const currentDate = new Date();
+        const currentTime = currentDate.toTimeString().slice(0, 5); // "HH:mm"
 
-        const ultimaTarefa = this.tasks.length > 0 ? this.tasks[this.tasks.length - 1] : null;
+        const lastTask = this.tasks.length > 0 ? this.tasks[this.tasks.length - 1] : null;
 
         // Atualiza horaFim da última tarefa, se existir
-        if (ultimaTarefa) {
-            ultimaTarefa.horaFim = horaAtual;
+        if (lastTask) {
+            lastTask.horaFim = currentTime;
         }
 
         // Cria a nova tarefa, copiando a descrição da última se existir
         this.tasks.push({
-            horaInicio: horaAtual,
-            horaFim: '',
-            descricao: ultimaTarefa ? ultimaTarefa.descricao : '',
+            startTime: currentTime,
+            endTime: '',
+            description: lastTask ? lastTask.descricao : '',
         });
     }
 
@@ -59,7 +63,7 @@ export class RegisterTracker {
         this.tasks.splice(index, 1);
     }
 
-    sendForm() {
+    onSave() {
         console.log('Tarefas enviadas:', this.tasks);
         alert('Tarefas enviadas com sucesso!');
     }
