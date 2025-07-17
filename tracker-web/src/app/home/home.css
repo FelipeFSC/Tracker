@@ -67,3 +67,32 @@
     background-color: #f9f9f9;
     font-style: italic;
 }
+
+
+.date-select-box {
+    display: flex;
+    align-content: center;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    width: 40%;
+}
+
+.month-display {
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 16px;
+    color: #4a4a4a;
+    text-transform: capitalize;
+}
+
+.hidden-month-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.box-menu {
+    display: flex;
+    justify-content: center;
+}

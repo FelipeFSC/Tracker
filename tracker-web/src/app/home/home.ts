@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import localePt from '@angular/common/locales/pt';
+
+registerLocaleData(localePt);
 
 @Component({
     selector: 'app-home',
@@ -86,11 +90,56 @@ export class Home {
                 break;
             case 'Excluir':
                 //this.excluir(event.row);
-                console.log("DELETAR "+ event.row);
+                console.log("DELETAR " + event.row);
                 break;
             default:
                 console.warn('Ação não reconhecida:', event.label);
         }
     }
 
+
+
+
+        mesAnoSelecionado: string = this.pegarMesAtual();
+    @ViewChild('inputMes') inputMes!: ElementRef;
+
+     filtrarPorMesAno(valor: string) {
+        console.log(valor);
+    }
+
+    pegarMesAtual(): string {
+        const hoje = new Date();
+        const ano = hoje.getFullYear();
+        const mes = (hoje.getMonth() + 1).toString().padStart(2, '0');
+        return `${ano}-${mes}`;
+    }
+
+    alterarMes(incremento: number) {
+        const [anoStr, mesStr] = this.mesAnoSelecionado.split('-');
+        const ano = parseInt(anoStr);
+        const mes = parseInt(mesStr);
+
+        const novaData = new Date(ano, mes - 1 + incremento);
+        const novoAno = novaData.getFullYear();
+        const novoMes = (novaData.getMonth() + 1).toString().padStart(2, '0');
+
+        this.mesAnoSelecionado = `${novoAno}-${novoMes}`;
+        this.filtrarPorMesAno(this.mesAnoSelecionado);
+    }
+
+    abrirSeletor() {
+        const input = this.inputMes.nativeElement;
+        input.style.pointerEvents = 'auto';
+        input.focus();
+        input.showPicker?.();
+        setTimeout(() => input.style.pointerEvents = 'none', 200);
+      }
+
+      get dataSelecionadaComoDate(): Date {
+        if (!this.mesAnoSelecionado) {
+            this.mesAnoSelecionado = this.pegarMesAtual();
+        }
+        const [ano, mes] = this.mesAnoSelecionado.split('-').map(Number);
+        return new Date(ano, mes - 1);
+    }
 }
