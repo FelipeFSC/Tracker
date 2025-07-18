@@ -1,14 +1,14 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { DataBaseService } from '../service/data-base.service';
 
 @Component({
     selector: 'app-register-tracker',
     standalone: false,
     templateUrl: './register-tracker.html',
-    styleUrl: './register-tracker.css'
+    styleUrl: './register-tracker.css',
 })
 export class RegisterTracker {
-
     @ViewChildren('lastTask') lastTasks!: QueryList<ElementRef>;
 
     isMobile = false;
@@ -17,7 +17,10 @@ export class RegisterTracker {
 
     isOpen: boolean = false;
 
-    constructor(private breakpointObserver: BreakpointObserver) {
+    constructor(
+        private breakpointObserver: BreakpointObserver,
+        private dbService: DataBaseService
+    ) {
         this.breakpointObserver
             .observe(['(max-width: 768px)'])
             .subscribe((state: BreakpointState) => {
@@ -40,11 +43,12 @@ export class RegisterTracker {
         const currentDate = new Date();
         const currentTime = currentDate.toTimeString().slice(0, 5); // "HH:mm"
 
-        const lastTask = this.tasks.length > 0 ? this.tasks[this.tasks.length - 1] : null;
+        const lastTask =
+            this.tasks.length > 0 ? this.tasks[this.tasks.length - 1] : null;
 
-        // Atualiza horaFim da última tarefa, se existir
+        // Atualiza endTime da última tarefa, se existir
         if (lastTask) {
-            lastTask.horaFim = currentTime;
+            lastTask.endTime = currentTime;
         }
 
         // Cria a nova tarefa, copiando a descrição da última se existir
@@ -65,6 +69,23 @@ export class RegisterTracker {
 
     onSave() {
         console.log('Tarefas enviadas:', this.tasks);
-        alert('Tarefas enviadas com sucesso!');
+        for (let item of this.tasks) {
+            this.createTaskElement(item);
+        }
+    }
+
+    createTaskElement(item: any) {
+        console.log(item);
+        let task = {
+            startTime: item.startTime,
+            endTime: item.endTime,
+            description: item.description,
+            applicant: item.applicant,
+            type: item.type,
+            serviceOrder: item.serviceOrder,
+            date: new Date()
+        };
+
+        this.dbService.add('task', task);
     }
 }
