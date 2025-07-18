@@ -78,8 +78,7 @@
             <!-- Linha principal -->
             <tr class="linha-principal" [ngClass]="{
                         'zebra-claro': i % 2 === 0,
-                        'zebra-escuro': i % 2 === 1}"
-                    (click)="onAbreFecha($event, row.id)">
+                        'zebra-escuro': i % 2 === 1}" (click)="onAbreFecha($event, row.id)">
                 <td>
                     <mat-icon [ngClass]="{'icon-rot': true, 'expandido': expandidos.includes(row.id)}">
                         {{ expandidos.includes(row.id) ? 'expand_less' : 'expand_more' }}
@@ -87,7 +86,15 @@
                 </td>
 
                 <ng-container *ngFor="let coluna of titulos1">
-                    <td>{{ row[coluna] }}</td>
+                    <ng-container *ngIf="coluna === 'status'">
+                        <td class="status-cell">
+                            <span class="status-dot" [ngClass]="row.status"></span>
+                        </td>
+                    </ng-container>
+                    <ng-container *ngIf="coluna !== 'status'">
+                        <td>{{ row[coluna] }}</td>
+                    </ng-container>
+
                 </ng-container>
 
                 <td>
@@ -99,7 +106,7 @@
             </tr>
 
             <!-- Linha de detalhes -->
-            <tr *ngIf="expandidos.includes(row.id)" [@expandCollapse] class="linha-expandida" >
+            <tr *ngIf="expandidos.includes(row.id)" [@expandCollapse] class="linha-expandida">
                 <td [attr.colspan]="titulos1.length + 2" [ngClass]="{
                         'zebra-claro': i % 2 === 0,
                         'zebra-escuro': i % 2 === 1}">

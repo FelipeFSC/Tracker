@@ -17,6 +17,9 @@ export class Home {
         { key: 'email', label: 'Email' },
     ];
 
+    filtroSelecionado = 'exact';
+
+
     expandedColumns = [
         { key: 'hrInicio', label: 'H. inicio' },
         { key: 'hrFim', label: 'H. Término' },

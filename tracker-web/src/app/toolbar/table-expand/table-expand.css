@@ -96,28 +96,40 @@
     color: #3C3F44;
 }
 
-/* Badges de status */
-.badge {
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 12px;
-    display: inline-block;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+.sub-tabela tbody tr:nth-of-type(odd) {
+    background-color: white;
 }
 
-.badge.fulfilled {
-    background-color: #E6F9F0;
+.sub-tabela tbody tr:nth-of-type(even) {
+    background-color: #fafafc;
+}
+
+
+/* Badges de status */
+.status-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+/*
+.status-cell {
+    text-align: center;
+    vertical-align: middle;
+}
+*/
+.success {
+    background-color: #2DCD8D;
     color: #2DCD8D;
 }
 
-.badge.partial {
-    background-color: #FFF5E0;
+.danger {
+    background-color: #FFA534;
     color: #FFA534;
 }
 
-.badge.cancelled {
-    background-color: #FBEAEA;
+.error {
+    background-color: #E04B4B;
     color: #E04B4B;
 }

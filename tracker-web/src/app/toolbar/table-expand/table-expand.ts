@@ -17,6 +17,7 @@ export class TableExpand {
 
     @Input() columns: Array<{ key: string, label: string, showStatusDot?: boolean }> = [];
     @Input() data: any[] = [];
+
     @Input() expandedColumns: Array<{ key: string, label: string }> = [];
     @Input() actionsButton: { icon: string, label: string } = { icon: 'more_vert', label: 'Ações' };
     @Input() actionsMenu: Array<{ icon: string, label: string }> = [];
@@ -25,9 +26,10 @@ export class TableExpand {
     @Input() expandedDataKey: string = 'details'; // padrão para retrocompatibilidade
 
 
-    expandedRowIds: any[] = [];
+    expandidos: any[] = [];
 
     selectedRowForMenu: any = null;
+
 
     onActionClick(label: string, row: any) {
         this.actionClicked.emit({ label, row });
@@ -36,23 +38,6 @@ export class TableExpand {
     openMenuForRow(row: any) {
         this.selectedRowForMenu = row;
     }
-
-    toggleRow(id: any) {
-        const index = this.expandedRowIds.indexOf(id);
-        if (index > -1) {
-            this.expandedRowIds.splice(index, 1); // já está expandido → fecha
-        } else {
-            this.expandedRowIds.push(id); // ainda não está expandido → abre
-        }
-    }
-
-    onRowClick(event: MouseEvent, id: any) {
-        // Se quiser expandir ao clicar na linha, exceto nos botões
-        this.toggleRow(id);
-    }
-
-
-    expandidos: any[] = [];
 
     onAbreFecha(event: MouseEvent, id: any) {
         const index = this.expandidos.indexOf(id);
@@ -63,7 +48,7 @@ export class TableExpand {
         }
     }
 
-    titulos1: string[] = ['nome', 'data', 'solicitante'];
+    titulos1: string[] = ['status', 'nome', 'data', 'solicitante'];
     titulos2: string[] = ['hora_inicio', 'hora_fim', 'tipo_atividade', 'solicitante', 'os', 'observacoes'];
     lista: any[] = [
         {
@@ -71,6 +56,7 @@ export class TableExpand {
             "nome": "Projeto A",
             "data": "2025-07-17",
             "solicitante": "João Silva",
+            'status': 'success',
             "detalhes": [
                 {
                     "hora_inicio": "08:00",
@@ -95,6 +81,7 @@ export class TableExpand {
             "nome": "Projeto B",
             "data": "2025-07-17",
             "solicitante": "Maria Oliveira",
+            'status': 'success',
             "detalhes": [
                 {
                     "hora_inicio": "09:00",
@@ -119,6 +106,7 @@ export class TableExpand {
             "nome": "Projeto C",
             "data": "2025-07-17",
             "solicitante": "Carlos Mendes",
+            'status': 'error',
             "detalhes": [
                 {
                     "hora_inicio": "08:30",
@@ -150,6 +138,7 @@ export class TableExpand {
             "nome": "Projeto E",
             "data": "2025-07-17",
             "solicitante": "Lucas Pereira",
+            'status': 'danger',
             "detalhes": [
                 {
                     "hora_inicio": "08:00",

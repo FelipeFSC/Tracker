@@ -4,24 +4,49 @@
 
 <div class="app-content">
     <mat-card style="padding: 10px; margin: auto; max-width: 1000px;">
-        <div class="box-menu">
-            <div class="date-select-box">
-                <button mat-icon-button (click)="alterarMes(-1)">
-                    <mat-icon>chevron_left</mat-icon>
-                </button>
 
-                <span class="month-display" (click)="abrirSeletor()">
-                    {{ dataSelecionadaComoDate | date: 'MMMM yyyy' : '' : 'pt-BR' }}
-                </span>
+        <div class="date-upload-wrapper">
+            <button mat-icon-button class="upload-button" aria-label="Upload">
+                <mat-icon style="color: #4a4a4a;">upload</mat-icon>
+            </button>
 
-                <input #inputMes type="month" [(ngModel)]="mesAnoSelecionado"
-                    (change)="filtrarPorMesAno(mesAnoSelecionado!)" class="hidden-month-input" />
+            <div class="box-menu">
+                <div class="date-select-box">
+                    <button mat-icon-button (click)="alterarMes(-1)">
+                        <mat-icon>chevron_left</mat-icon>
+                    </button>
 
-                <button mat-icon-button (click)="alterarMes(1)">
-                    <mat-icon>chevron_right</mat-icon>
-                </button>
+                    <span class="month-display" (click)="abrirSeletor()">
+                        {{ dataSelecionadaComoDate | date: 'MMMM yyyy' : '' : 'pt-BR' }}
+                    </span>
+
+                    <input #inputMes type="month" [(ngModel)]="mesAnoSelecionado"
+                        (change)="filtrarPorMesAno(mesAnoSelecionado!)" class="hidden-month-input" />
+
+                    <button mat-icon-button (click)="alterarMes(1)">
+                        <mat-icon>chevron_right</mat-icon>
+                    </button>
+                </div>
             </div>
         </div>
+
+
+
+        <br>
+        <div class="search-filter-box">
+            <div class="select-wrapper">
+                <select class="custom-select">
+                    <option>status</option>
+                    <option>nome</option>
+                    <option>solicitante</option>
+                    <option>os</option>
+                    <option>observacoes</option>
+                </select>
+                <span class="select-icon material-icons">expand_more</span>
+            </div>
+            <input class="search-input" type="text" placeholder="Pesquise pela chave" />
+        </div>
+
 
         <br>
 
