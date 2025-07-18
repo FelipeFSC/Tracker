@@ -12,43 +12,43 @@
                         <div class="form-row" *ngIf="!isOpen">
                             <mat-form-field appearance="outline">
                                 <mat-label>Hora Início</mat-label>
-                                <input matInput type="time" [(ngModel)]="task.horaInicio" name="horaInicio-{{ i }}"
+                                <input matInput type="time" [(ngModel)]="task.startTime" name="startTime-{{ i }}"
                                     required>
                             </mat-form-field>
 
                             <mat-form-field appearance="outline">
                                 <mat-label>Hora Fim</mat-label>
-                                <input matInput type="time" [(ngModel)]="task.horaFim" name="horaFim-{{ i }}" required>
+                                <input matInput type="time" [(ngModel)]="task.endTime" name="endTime-{{ i }}" required>
                             </mat-form-field>
                         </div>
                         <div class="form-row" *ngIf="!isOpen">
                             <mat-form-field appearance="outline">
                                 <mat-label>Tipo de atividade</mat-label>
-                                <mat-select>
-                                    <mat-option value="option">Tarefa</mat-option>
-                                    <mat-option value="option">Reunião</mat-option>
-                                    <mat-option value="option">Almoço</mat-option>
-                                    <mat-option value="option">Férias</mat-option>
+                                <mat-select [(ngModel)]="task.type" [ngModelOptions]="{standalone: true}">
+                                    <mat-option value="1">Tarefa</mat-option>
+                                    <mat-option value="2">Reunião</mat-option>
+                                    <mat-option value="3">Almoço</mat-option>
+                                    <mat-option value="4">Férias</mat-option>
                                 </mat-select>
                             </mat-form-field>
                             <mat-form-field appearance="outline">
                                 <mat-label>Solicitante</mat-label>
-                                <mat-select>
-                                    <mat-option value="option">Coca cola</mat-option>
-                                    <mat-option value="option">Itau</mat-option>
-                                    <mat-option value="option">Bradesco</mat-option>
-                                    <mat-option value="option">Xuxa</mat-option>
+                                <mat-select [(ngModel)]="task.applicant" [ngModelOptions]="{standalone: true}">
+                                    <mat-option value="1">Coca cola</mat-option>
+                                    <mat-option value="2">Itau</mat-option>
+                                    <mat-option value="3">Bradesco</mat-option>
+                                    <mat-option value="4">Xuxa</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
                         <ng-container *ngIf="isOpen">
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>OS</mat-label>
-                                <input matInput>
+                                <input matInput [(ngModel)]="task.serviceOrder" [ngModelOptions]="{standalone: true}">
                             </mat-form-field>
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Observações</mat-label>
-                                <textarea matInput rows="1" placeholder="" [(ngModel)]="task.descricao"
+                                <textarea matInput rows="1" placeholder="" [(ngModel)]="task.description"
                                     name="descricao"></textarea>
                             </mat-form-field>
                         </ng-container>
@@ -103,13 +103,13 @@
                         <div class="form-row-desktop">
                             <mat-form-field appearance="outline">
                                 <mat-label>Hora Início</mat-label>
-                                <input matInput type="time" [(ngModel)]="task.horaInicio" name="horaInicio-{{ i }}"
+                                <input matInput type="time" [(ngModel)]="task.startTime" name="startTime-{{ i }}"
                                     required />
                             </mat-form-field>
 
                             <mat-form-field appearance="outline">
                                 <mat-label>Hora Fim</mat-label>
-                                <input matInput type="time" [(ngModel)]="task.horaFim" name="horaFim-{{ i }}"
+                                <input matInput type="time" [(ngModel)]="task.endTime" name="endTime-{{ i }}"
                                     required />
                             </mat-form-field>
                         </div>
@@ -118,21 +118,21 @@
                         <div class="form-row-desktop">
                             <mat-form-field appearance="outline">
                                 <mat-label>Tipo de atividade</mat-label>
-                                <mat-select>
-                                    <mat-option value="option">Tarefa</mat-option>
-                                    <mat-option value="option">Reunião</mat-option>
-                                    <mat-option value="option">Almoço</mat-option>
-                                    <mat-option value="option">Férias</mat-option>
+                                <mat-select [(ngModel)]="task.type" [ngModelOptions]="{standalone: true}">
+                                    <mat-option value="1">Tarefa</mat-option>
+                                    <mat-option value="2">Reunião</mat-option>
+                                    <mat-option value="3">Almoço</mat-option>
+                                    <mat-option value="4">Férias</mat-option>
                                 </mat-select>
                             </mat-form-field>
 
                             <mat-form-field appearance="outline">
                                 <mat-label>Solicitante</mat-label>
-                                <mat-select>
-                                    <mat-option value="option">Coca cola</mat-option>
-                                    <mat-option value="option">Itau</mat-option>
-                                    <mat-option value="option">Bradesco</mat-option>
-                                    <mat-option value="option">Xuxa</mat-option>
+                                <mat-select [(ngModel)]="task.applicant" [ngModelOptions]="{standalone: true}">
+                                    <mat-option value="1">Coca cola</mat-option>
+                                    <mat-option value="2">Itau</mat-option>
+                                    <mat-option value="3">Bradesco</mat-option>
+                                    <mat-option value="4">Xuxa</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
@@ -141,7 +141,7 @@
                         <div class="form-row-desktop">
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>OS</mat-label>
-                                <input matInput />
+                                <input matInput [(ngModel)]="task.serviceOrder" [ngModelOptions]="{standalone: true}"/>
                             </mat-form-field>
                         </div>
 
@@ -149,7 +149,7 @@
                         <div class="form-row-desktop">
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Observações</mat-label>
-                                <textarea matInput rows="2" placeholder="" [(ngModel)]="task.descricao"
+                                <textarea matInput rows="2" placeholder="" [(ngModel)]="task.description"
                                     name="descricao"></textarea>
                             </mat-form-field>
                         </div>
