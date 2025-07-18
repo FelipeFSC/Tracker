@@ -55,7 +55,7 @@
                         <div class="form-actions">
                             <button mat-raised-button color="warn" type="button" class="buttom-radius action-buttom"
                                 (click)="removeTask(i)">
-                                Remover
+                                Deletar
                             </button>
 
                             <ng-container *ngIf="!isOpen">
@@ -77,7 +77,7 @@
 
                 <div class="actions">
                     <button mat-raised-button color="accent" type="button" class="buttom-radius" (click)="addTask()">
-                        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
+                        Nova Tarefa
                     </button>
                 </div>
 
@@ -164,12 +164,24 @@
                     </div>
                 </div>
 
-                <button mat-raised-button color="accent" type="button" class="buttom-radius" (click)="addTask()">
-                    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="add"></mat-icon>
-                </button>
+                <div style="display: flex; justify-content: center; gap: 8px;">
+                    <button mat-raised-button color="accent" type="button" class="buttom-radius" (click)="addTask()">
+                        Nova Tarefa
+                    </button>
+
+
+                    <button mat-raised-button color="accent" type="button" class="buttom-radius" (click)="addTask()">
+                        Almoço
+                    </button>
+
+                    <button mat-raised-button color="accent" type="button" class="buttom-radius" (click)="addTask()">
+                        X1
+                    </button>
+                </div>
+
                 <!-- Botões principais -->
                 <div class="actions-desktop">
-                    <button mat-raised-button class="save-button" type="submit" color="primary">
+                    <button mat-raised-button class="save-button full-width" type="submit">
                         Salvar
                     </button>
                 </div>

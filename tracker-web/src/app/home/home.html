@@ -3,12 +3,31 @@
 
 
 <div class="app-content">
+    <mat-card style="padding: 10px; margin: auto; max-width: 1000px;">
+        <div class="box-menu">
+            <div class="date-select-box">
+                <button mat-icon-button (click)="alterarMes(-1)">
+                    <mat-icon>chevron_left</mat-icon>
+                </button>
 
-    <app-table-expand [columns]="columns" [data]="rows" [expandedColumns]="expandedColumns"
-        [actionsButton]="actionsButton" [actionsMenu]="actionsMenu" (actionClicked)="handleTableAction($event)">
-    </app-table-expand>
+                <span class="month-display" (click)="abrirSeletor()">
+                    {{ dataSelecionadaComoDate | date: 'MMMM yyyy' : '' : 'pt-BR' }}
+                </span>
 
+                <input #inputMes type="month" [(ngModel)]="mesAnoSelecionado"
+                    (change)="filtrarPorMesAno(mesAnoSelecionado!)" class="hidden-month-input" />
 
+                <button mat-icon-button (click)="alterarMes(1)">
+                    <mat-icon>chevron_right</mat-icon>
+                </button>
+            </div>
+        </div>
 
+        <br>
 
+        <app-table-expand [columns]="columns" [data]="rows" [expandedColumns]="expandedColumns"
+            [actionsButton]="actionsButton" [actionsMenu]="actionsMenu" (actionClicked)="handleTableAction($event)">
+        </app-table-expand>
+
+    </mat-card>
 </div>
