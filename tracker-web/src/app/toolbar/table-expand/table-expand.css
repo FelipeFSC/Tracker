@@ -1,132 +1,123 @@
-/* === TABELA PRINCIPAL === */
-.table {
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+.tabela-modern {
     width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
-    font-family: 'Roboto', sans-serif;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    background-color: transparent;
+    color: #1A1C1E;
 }
 
 /* Cabeçalho */
-thead tr {
-    background-color: #f4f4fb !important;
-}
-
-.table th {
-    padding: 12px;
+.tabela-modern thead tr th {
     text-align: left;
-    font-weight: normal !important;
-    font-size: 14px;
-}
-
-/* Zebra: começa branco, depois #fafafc */
-.table tr:nth-child(odd) {
-    background-color: #ffffff;
-}
-
-.table tr:nth-child(even) {
-    background-color: #fafafc;
-}
-
-/* Células */
-.table td {
-    padding: 10px 12px;
-    font-size: 14px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* Coluna de expandir */
-.col-expand {
-    width: 40px;
-    text-align: center;
-}
-
-/* Coluna de status */
-.col-status {
-    width: 30px;
-    text-align: center;
-}
-
-/* Coluna de dados */
-.col-data {
-    text-align: left;
-}
-
-/* Coluna de ações */
-.col-actions {
-    width: 120px;
-    text-align: right;
-    /* Nenhum estilo forçado aqui — deixar o Angular Material cuidar */
-}
-
-/* Bolinha de status */
-.status-dot {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    vertical-align: middle;
-}
-
-.status-dot.success {
-    background-color: #4caf50;
-}
-
-.status-dot.error {
-    background-color: #f44336;
-}
-
-.status-dot.alert {
-    background-color: #ff9800;
-}
-
-/* Linha expandida */
-.expanded-row td {
-    background-color: #f9f9f9;
-    padding: 0;
-}
-
-.expanded-container {
-    padding: 0 !important;
-}
-
-/* Tabela interna (dentro da expansão) */
-.inner-table-wrapper {
-    padding: 0px 20px 20px 20px;
-    overflow-x: auto;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.inner-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-    table-layout: fixed;
-    margin: 0;
-}
-
-/* Cabeçalho da tabela interna */
-.inner-table thead {
+    padding: 12px 16px;
+    font-weight: 600;
+    color: #5E6C84;
     background-color: #f4f4fb;
 }
 
-.inner-table th,
-.inner-table td {
-    padding: 10px;
-    border: none;
-    font-weight: normal;
+/* Zebra apenas nas linhas principais */
+.zebra-claro {
+    background-color: white;
+}
+
+.zebra-escuro {
+    background-color: #fafafc;
+}
+
+/* Linha principal com efeito cartão */
+.tabela-modern tbody tr.linha-principal {
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.2s ease;
+    border-radius: 8px;
+}
+
+.tabela-modern tbody tr.linha-principal:hover {
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Células padrão */
+.tabela-modern td {
+    padding: 0px 16px;
+    border-bottom: 1px solid #F0F0F0;
+    vertical-align: middle;
+}
+
+.linha-expandida td {
+    padding: 10px 16px;
+}
+
+
+/* Remove borda duplicada da primeira linha */
+.tabela-modern tbody tr:first-child td {
+    border-top: none;
+}
+
+/* Ícone de expandir */
+.icon-rot {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+.icon-rot.expandido {
+    transform: rotate(180deg);
+}
+
+/* Bordas arredondadas para cada linha tipo cartão */
+.tabela-modern tbody tr.linha-principal td:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+.tabela-modern tbody tr.linha-principal td:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* Linha expandida (sem zebra, sem sombra) */
+.tabela-modern tbody tr.linha-expandida {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+/* Sub-tabela dentro da linha expandida */
+.sub-tabela {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #FAFAFA;
+    border-radius: 6px;
+}
+.sub-tabela th,
+.sub-tabela td {
+    padding: 8px 12px;
+    border: 1px solid #ECECEC;
     font-size: 13px;
-    text-align: left;
+    color: #3C3F44;
 }
 
-/* Zebra */
-
-.row-white {
-  background-color: #ffffff;
+/* Badges de status */
+.badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 12px;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.row-alt {
-  background-color: #fafafc;
+.badge.fulfilled {
+    background-color: #E6F9F0;
+    color: #2DCD8D;
+}
+
+.badge.partial {
+    background-color: #FFF5E0;
+    color: #FFA534;
+}
+
+.badge.cancelled {
+    background-color: #FBEAEA;
+    color: #E04B4B;
 }

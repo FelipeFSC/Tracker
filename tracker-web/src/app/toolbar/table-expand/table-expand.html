@@ -1,3 +1,4 @@
+<!--
 <table class="table main-table">
     <thead>
         <tr>
@@ -12,24 +13,20 @@
     <tbody>
         <ng-container *ngFor="let row of data">
             <tr (click)="onRowClick($event, row.id)">
-                <!-- Botão expandir -->
                 <td class="col-expand">
                     <mat-icon>
                         {{ expandedRowIds.includes(row.id)? 'expand_less' : 'expand_more' }}
                     </mat-icon>
                 </td>
 
-                <!-- Bolinha de status -->
                 <td class="col-status">
                     <span class="status-dot" [ngClass]="row.status"></span>
                 </td>
 
-                <!-- Colunas de dados -->
                 <ng-container *ngFor="let col of columns">
                     <td class="col-data">{{ row[col.key] }}</td>
                 </ng-container>
 
-                <!-- Botão de ações -->
                 <td class="col-actions">
                     <button matIconButton [matMenuTriggerFor]="actionsMenuRef"
                         (click)="openMenuForRow(row); $event.stopPropagation()">
@@ -38,7 +35,6 @@
                 </td>
             </tr>
 
-            <!-- Linha expandida -->
             <tr *ngIf="expandedRowIds.includes(row.id)" class="expanded-row">
                 <td class="expanded-container" [attr.colspan]="columns.length + 3">
                     <div class="inner-table-wrapper" style="background-color: white;">
@@ -62,6 +58,71 @@
                 </td>
             </tr>
 
+        </ng-container>
+    </tbody>
+</table>
+-->
+
+<table class="tabela-modern tabela-principal">
+    <thead>
+        <tr>
+            <th></th>
+            <ng-container *ngFor="let coluna of titulos1">
+                <th>{{ coluna }}</th>
+            </ng-container>
+            <th>menu</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let row of lista let i = index">
+            <!-- Linha principal -->
+            <tr class="linha-principal" [ngClass]="{
+                        'zebra-claro': i % 2 === 0,
+                        'zebra-escuro': i % 2 === 1}"
+                    (click)="onAbreFecha($event, row.id)">
+                <td>
+                    <mat-icon [ngClass]="{'icon-rot': true, 'expandido': expandidos.includes(row.id)}">
+                        {{ expandidos.includes(row.id) ? 'expand_less' : 'expand_more' }}
+                    </mat-icon>
+                </td>
+
+                <ng-container *ngFor="let coluna of titulos1">
+                    <td>{{ row[coluna] }}</td>
+                </ng-container>
+
+                <td>
+                    <button matIconButton [matMenuTriggerFor]="actionsMenuRef"
+                        (click)="openMenuForRow(row); $event.stopPropagation()">
+                        <mat-icon>{{ actionsButton.icon }}</mat-icon> {{ actionsButton.label }}
+                    </button>
+                </td>
+            </tr>
+
+            <!-- Linha de detalhes -->
+            <tr *ngIf="expandidos.includes(row.id)" [@expandCollapse] class="linha-expandida" >
+                <td [attr.colspan]="titulos1.length + 2" [ngClass]="{
+                        'zebra-claro': i % 2 === 0,
+                        'zebra-escuro': i % 2 === 1}">
+                    <table class="tabela-modern sub-tabela">
+                        <thead>
+                            <tr>
+                                <ng-container *ngFor="let coluna of titulos2">
+                                    <th>{{ coluna }}</th>
+                                </ng-container>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let row2 of row['detalhes']">
+                                <tr>
+                                    <ng-container *ngFor="let coluna of titulos2">
+                                        <td>{{ row2[coluna] }}</td>
+                                    </ng-container>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
         </ng-container>
     </tbody>
 </table>
