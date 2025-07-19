@@ -1,5 +1,5 @@
 import { registerLocaleData } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import localePt from '@angular/common/locales/pt';
 
 registerLocaleData(localePt);
@@ -19,6 +19,8 @@ export class Home {
 
     filtroSelecionado = 'exact';
 
+    mostrarTarefa = false;
+    dataTarefa: Date = new Date();
 
     expandedColumns = [
         { key: 'hrInicio', label: 'H. inicio' },
@@ -100,13 +102,10 @@ export class Home {
         }
     }
 
-
-
-
-        mesAnoSelecionado: string = this.pegarMesAtual();
+    mesAnoSelecionado: string = this.pegarMesAtual();
     @ViewChild('inputMes') inputMes!: ElementRef;
 
-     filtrarPorMesAno(valor: string) {
+    filtrarPorMesAno(valor: string) {
         console.log(valor);
     }
 
@@ -136,13 +135,18 @@ export class Home {
         input.focus();
         input.showPicker?.();
         setTimeout(() => input.style.pointerEvents = 'none', 200);
-      }
+    }
 
-      get dataSelecionadaComoDate(): Date {
+    get dataSelecionadaComoDate(): Date {
         if (!this.mesAnoSelecionado) {
             this.mesAnoSelecionado = this.pegarMesAtual();
         }
         const [ano, mes] = this.mesAnoSelecionado.split('-').map(Number);
         return new Date(ano, mes - 1);
+    }
+
+    criarTarefa() {
+        console.log('Tarefa criada com data:', this.dataTarefa);
+        this.mostrarTarefa = false;
     }
 }

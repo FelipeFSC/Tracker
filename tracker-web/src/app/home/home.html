@@ -44,9 +44,38 @@
                 </select>
                 <span class="select-icon material-icons">expand_more</span>
             </div>
-            <input class="search-input" type="text" placeholder="Pesquise pela chave" />
+            <input class="search-input" type="text" placeholder="Pesquise pela chave"/>
         </div>
 
+        <br>
+
+        <div>
+            <button mat-raised-button (click)="mostrarTarefa = !mostrarTarefa"
+                style="background-color:#7A9CE6; color: white; width: 150px; float: right;">
+                Nova Tarefa
+            </button>
+        </div>
+        <div *ngIf="mostrarTarefa" class="popover-card" [style.position]="'absolute'" [style.zIndex]="'1000'"
+            [style.background]="'white'" [style.boxShadow]="'0 4px 8px rgba(0,0,0,0.2)'" [style.padding.px]="16"
+            [style.borderRadius.px]="8">
+            <mat-card-content>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Data</mat-label>
+                    <input matInput [matDatepicker]="picker" [(ngModel)]="dataTarefa" name="dataTarefa" />
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions style="float: right;">
+                <button mat-raised-button color="warn" (click)="mostrarTarefa = false">
+                    Cancelar
+                </button>
+                &nbsp;&nbsp;&nbsp;
+                <button mat-raised-button color="primary" (click)="criarTarefa()">
+                    Criar
+                </button>
+            </mat-card-actions>
+        </div>
 
         <br>
 
