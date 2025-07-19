@@ -24,7 +24,7 @@
                         <div class="form-row" *ngIf="!isOpen">
                             <mat-form-field appearance="outline">
                                 <mat-label>Tipo de atividade</mat-label>
-                                <mat-select [(ngModel)]="task.type" [ngModelOptions]="{standalone: true}">
+                                <mat-select [(ngModel)]="task.type" name="type">
                                     <mat-option value="1">Tarefa</mat-option>
                                     <mat-option value="2">Reunião</mat-option>
                                     <mat-option value="3">Almoço</mat-option>
@@ -33,7 +33,7 @@
                             </mat-form-field>
                             <mat-form-field appearance="outline">
                                 <mat-label>Solicitante</mat-label>
-                                <mat-select [(ngModel)]="task.applicant" [ngModelOptions]="{standalone: true}">
+                                <mat-select [(ngModel)]="task.applicant" name="applicant">
                                     <mat-option value="1">Coca cola</mat-option>
                                     <mat-option value="2">Itau</mat-option>
                                     <mat-option value="3">Bradesco</mat-option>
@@ -44,11 +44,11 @@
                         <ng-container *ngIf="isOpen">
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>OS</mat-label>
-                                <input matInput [(ngModel)]="task.serviceOrder" [ngModelOptions]="{standalone: true}">
+                                <input matInput [(ngModel)]="task.serviceOrder" name="serviceOrder">
                             </mat-form-field>
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Observações</mat-label>
-                                <textarea matInput rows="1" placeholder="" [(ngModel)]="task.description"
+                                <textarea matInput rows="1" placeholder="" [(ngModel)]="task.description" name="description"
                                     name="descricao"></textarea>
                             </mat-form-field>
                         </ng-container>
@@ -118,7 +118,7 @@
                         <div class="form-row-desktop">
                             <mat-form-field appearance="outline">
                                 <mat-label>Tipo de atividade</mat-label>
-                                <mat-select [(ngModel)]="task.type" [ngModelOptions]="{standalone: true}">
+                                <mat-select [(ngModel)]="task.type" name="type">
                                     <mat-option value="1">Tarefa</mat-option>
                                     <mat-option value="2">Reunião</mat-option>
                                     <mat-option value="3">Almoço</mat-option>
@@ -128,7 +128,7 @@
 
                             <mat-form-field appearance="outline">
                                 <mat-label>Solicitante</mat-label>
-                                <mat-select [(ngModel)]="task.applicant" [ngModelOptions]="{standalone: true}">
+                                <mat-select [(ngModel)]="task.applicant" name="applicant">
                                     <mat-option value="1">Coca cola</mat-option>
                                     <mat-option value="2">Itau</mat-option>
                                     <mat-option value="3">Bradesco</mat-option>
@@ -141,7 +141,7 @@
                         <div class="form-row-desktop">
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>OS</mat-label>
-                                <input matInput [(ngModel)]="task.serviceOrder" [ngModelOptions]="{standalone: true}"/>
+                                <input matInput [(ngModel)]="task.serviceOrder" name="serviceOrder"/>
                             </mat-form-field>
                         </div>
 
@@ -149,7 +149,7 @@
                         <div class="form-row-desktop">
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Observações</mat-label>
-                                <textarea matInput rows="2" placeholder="" [(ngModel)]="task.description"
+                                <textarea matInput rows="2" placeholder="" name="obs"
                                     name="descricao"></textarea>
                             </mat-form-field>
                         </div>
