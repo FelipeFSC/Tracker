@@ -1,0 +1,87 @@
+<app-principal></app-principal>
+<app-navigation></app-navigation>
+
+
+<div class="app-content">
+    <mat-card style="padding: 10px; margin: auto; max-width: 1000px;">
+
+        <div class="date-upload-wrapper">
+            <button mat-icon-button class="upload-button" aria-label="Upload">
+                <mat-icon style="color: #4a4a4a;">upload</mat-icon>
+            </button>
+
+            <div class="box-menu">
+                <div class="date-select-box">
+                    <button mat-icon-button (click)="alterarMes(-1)">
+                        <mat-icon>chevron_left</mat-icon>
+                    </button>
+
+                    <span class="month-display" (click)="abrirSeletor()">
+                        {{ dataSelecionadaComoDate | date: 'MMMM yyyy' : '' : 'pt-BR' }}
+                    </span>
+
+                    <input #inputMes type="month" [(ngModel)]="mesAnoSelecionado"
+                        (change)="filtrarPorMesAno(mesAnoSelecionado!)" class="hidden-month-input" />
+
+                    <button mat-icon-button (click)="alterarMes(1)">
+                        <mat-icon>chevron_right</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <br>
+        <div class="search-filter-box">
+            <div class="select-wrapper">
+                <select class="custom-select">
+                    <option>status</option>
+                    <option>nome</option>
+                    <option>solicitante</option>
+                    <option>os</option>
+                    <option>observacoes</option>
+                </select>
+                <span class="select-icon material-icons">expand_more</span>
+            </div>
+            <input class="search-input" type="text" placeholder="Pesquise pela chave"/>
+        </div>
+
+        <br>
+
+        <div>
+            <button mat-raised-button (click)="showNewTrackerModal = !showNewTrackerModal"
+                style="background-color:#7A9CE6; color: white; width: 150px; float: right;">
+                Nova Tarefa
+            </button>
+        </div>
+        <div *ngIf="showNewTrackerModal" class="popover-card" [style.position]="'absolute'" [style.zIndex]="'1000'"
+            [style.background]="'white'" [style.boxShadow]="'0 4px 8px rgba(0,0,0,0.2)'" [style.padding.px]="16"
+            [style.borderRadius.px]="8">
+            <mat-card-content>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Data</mat-label>
+                    <input matInput [matDatepicker]="picker" [(ngModel)]="dataTarefa" name="dataTarefa" />
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions style="float: right;">
+                <button mat-raised-button color="warn" (click)="showNewTrackerModal = false">
+                    Cancelar
+                </button>
+                &nbsp;&nbsp;&nbsp;
+                <button mat-raised-button color="primary" (click)="onNavigateRegisterTracker()">
+                    Criar
+                </button>
+            </mat-card-actions>
+        </div>
+
+        <br>
+
+        <app-table-expand [columns]="columns" [data]="rows" [expandedColumns]="expandedColumns"
+            [actionsButton]="actionsButton" [actionsMenu]="actionsMenu" (actionClicked)="handleTableAction($event)">
+        </app-table-expand>
+
+    </mat-card>
+</div>

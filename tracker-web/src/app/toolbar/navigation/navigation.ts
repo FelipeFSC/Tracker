@@ -18,8 +18,8 @@ export class Navigation {
         this.router.navigate(['home']);
     }
 
-    onTrackerRegister() {
-        this.router.navigate(['tracker-register']);
+    onTracker() {
+        this.router.navigate(['tracker']);
     }
 
     onTaskTemplate() {

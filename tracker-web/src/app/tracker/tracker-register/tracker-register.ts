@@ -1,14 +1,14 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
-import { DataBaseService } from '../service/data-base.service';
+import { DataBaseService } from '../../service/data-base.service';
 
 @Component({
-    selector: 'app-register-tracker',
+    selector: 'app-tracker-register',
     standalone: false,
-    templateUrl: './register-tracker.html',
-    styleUrl: './register-tracker.css',
+    templateUrl: './tracker-register.html',
+    styleUrl: './tracker-register.css',
 })
-export class RegisterTracker {
+export class TrackerRegister {
     @ViewChildren('lastTask') lastTasks!: QueryList<ElementRef>;
 
     isMobile = false;

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegisterTracker } from './register-tracker';
+import { TrackerRegister } from './tracker-register';
 
 describe('RegisterTracker', () => {
-  let component: RegisterTracker;
-  let fixture: ComponentFixture<RegisterTracker>;
+  let component: TrackerRegister;
+  let fixture: ComponentFixture<TrackerRegister>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RegisterTracker]
+      declarations: [TrackerRegister]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RegisterTracker);
+    fixture = TestBed.createComponent(TrackerRegister);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
