@@ -1,6 +1,7 @@
 import { registerLocaleData } from '@angular/common';
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import localePt from '@angular/common/locales/pt';
+import { Router } from '@angular/router';
 
 registerLocaleData(localePt);
 
@@ -8,10 +9,9 @@ registerLocaleData(localePt);
     selector: 'app-home',
     standalone: false,
     templateUrl: './home.html',
-    styleUrl: './home.css'
+    styleUrl: './home.css',
 })
 export class Home {
-
     columns = [
         { key: 'name', label: 'Nome' },
         { key: 'email', label: 'Email' },
@@ -19,7 +19,7 @@ export class Home {
 
     filtroSelecionado = 'exact';
 
-    mostrarTarefa = false;
+    showNewTrackerModal: boolean = false;
     dataTarefa: Date = new Date();
 
     expandedColumns = [
@@ -42,19 +42,19 @@ export class Home {
                     hrInicio: '10:00',
                     hrFim: '11:00',
                     atividade: 'Desenvolvimento',
-                    solicitante: 'Coca Cola'
+                    solicitante: 'Coca Cola',
                 },
                 {
                     hrInicio: '11:00',
                     hrFim: '13:00',
                     atividade: 'Desenvolvimento',
-                    solicitante: 'Coca Cola'
+                    solicitante: 'Coca Cola',
                 },
                 {
                     hrInicio: '13:00',
                     hrFim: '16:00',
                     atividade: 'Desenvolvimento',
-                    solicitante: 'Coca Cola'
+                    solicitante: 'Coca Cola',
                 },
             ],
         },
@@ -83,19 +83,20 @@ export class Home {
         {
             icon: 'delete',
             label: 'Excluir',
-        }
+        },
     ];
 
+    constructor(private router: Router) {}
 
-    handleTableAction(event: { label: string, row: any }) {
+    handleTableAction(event: { label: string; row: any }) {
         switch (event.label) {
             case 'Editar':
                 //this.editar(event.row);
-                console.log("EDITAR " + event.row);
+                console.log('EDITAR ' + event.row);
                 break;
             case 'Excluir':
                 //this.excluir(event.row);
-                console.log("DELETAR " + event.row);
+                console.log('DELETAR ' + event.row);
                 break;
             default:
                 console.warn('Ação não reconhecida:', event.label);
@@ -134,7 +135,7 @@ export class Home {
         input.style.pointerEvents = 'auto';
         input.focus();
         input.showPicker?.();
-        setTimeout(() => input.style.pointerEvents = 'none', 200);
+        setTimeout(() => (input.style.pointerEvents = 'none'), 200);
     }
 
     get dataSelecionadaComoDate(): Date {
@@ -145,8 +146,10 @@ export class Home {
         return new Date(ano, mes - 1);
     }
 
-    criarTarefa() {
+    onNavigateRegisterTracker() {
         console.log('Tarefa criada com data:', this.dataTarefa);
-        this.mostrarTarefa = false;
+        this.showNewTrackerModal = false;
+
+        this.router.navigate(['/tracker-register']);
     }
 }
