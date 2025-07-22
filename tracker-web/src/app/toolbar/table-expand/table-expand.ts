@@ -19,21 +19,24 @@ export class TableExpand {
     @Input() data: any[] = [];
 
     @Input() expandedColumns: Array<{ key: string, label: string }> = [];
-    @Input() actionsButton: { icon: string, label: string } = { icon: 'more_vert', label: 'Ações' };
-    @Input() actionsMenu: Array<{ icon: string, label: string }> = [];
+    actionsButton: { icon: string } = { icon: 'more_vert' };
+
 
     @Output() actionClicked = new EventEmitter<{ label: string, row: any }>();
-    @Input() expandedDataKey: string = 'details'; // padrão para retrocompatibilidade
+    @Input() expandedDataKey: string = 'tasks'; // padrão para retrocompatibilidade
 
+    dataSource: any[] = [];
 
     expandidos: any[] = [];
 
     selectedRowForMenu: any = null;
 
-    ngOnChange() {
-        console.log(this.data);
-        console.log(this.columns);
-        console.log(this.expandedColumns);
+    ngOnChanges() {
+        if (this.data && this.data.length > 0) {
+            console.log(this.data);
+
+            //this.dataSource = this.data;
+        }
     }
 
     onActionClick(label: string, row: any) {

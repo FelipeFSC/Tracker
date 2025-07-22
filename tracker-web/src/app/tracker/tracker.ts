@@ -13,17 +13,12 @@ registerLocaleData(localePt);
     styleUrl: './tracker.css',
 })
 export class Tracker {
+
     columns = [
-        { key: 'name', label: 'Nome' },
-        { key: 'email', label: 'Email' },
         { key: 'status', label: 'Status' },
+        { key: 'name', label: 'Name' },
+        { key: 'date', label: 'Date' },
     ];
-
-    filtroSelecionado = 'exact';
-
-    showNewTrackerModal: boolean = false;
-    dataTarefa: Date = new Date();
-
     expandedColumns = [
         { key: 'startTime', label: 'H. inicio' },
         { key: 'endTime', label: 'H. Término' },
@@ -32,89 +27,66 @@ export class Tracker {
         { key: 'serviceOrder', label: 'OS' },
         { key: 'description', label: 'Observações' },
     ];
-
     dataSource: any[] = [];
 
-    // rows = [
-    //     {
-    //         id: 1,
-    //         name: 'João',
-    //         email: 'joao@email.com',
-    //         status: 'success',
-    //         details: [
-    //             {
-    //                 hrInicio: '10:00',
-    //                 hrFim: '11:00',
-    //                 atividade: 'Desenvolvimento',
-    //                 solicitante: 'Coca Cola',
-    //             },
-    //             {
-    //                 hrInicio: '11:00',
-    //                 hrFim: '13:00',
-    //                 atividade: 'Desenvolvimento',
-    //                 solicitante: 'Coca Cola',
-    //             },
-    //             {
-    //                 hrInicio: '13:00',
-    //                 hrFim: '16:00',
-    //                 atividade: 'Desenvolvimento',
-    //                 solicitante: 'Coca Cola',
-    //             },
-    //         ],
-    //     },
-    //     {
-    //         id: 2,
-    //         name: 'PEDRO',
-    //         email: 'PEDRO@email.com',
-    //         status: 'success',
-    //         details: [
-    //             {
-    //                 hrInicio: '10:00',
-    //                 hrFim: '11:00',
-    //             },
-    //         ],
-    //     },
-    //     // outros dados...
-    // ];
+    filtroSelecionado = 'exact';
 
-    actionsButton = { icon: 'more_vert', label: '' };
+    showNewTrackerModal: boolean = false;
 
-    actionsMenu = [
-        {
-            icon: 'edit',
-            label: 'Editar',
-        },
-        {
-            icon: 'delete',
-            label: 'Excluir',
-        },
-    ];
+    dataTarefa: Date = new Date();
 
-    constructor(private router: Router, private dbService: DataBaseService) {}
+    constructor(
+        private router: Router,
+        private dbService: DataBaseService) { }
 
     ngOnInit() {
         this.listTracker();
     }
 
     listTracker() {
-        this.dbService.findAll('tracker', 'date').then((data: any[]) => {
-            this.dataSource = data;
+        this.dbService.findAll('tracker', 'date').then((list: any[]) => {
+            let itens = [];
+            console.log();
+            for (let item of list) {
+                let data = {
+                    id: item.id,
+                    code: item.code,
+                    name: "Cleber",
+                    date: item.date.toLocaleDateString('pt-BR'),
+                    status: "success",
+                    tasks: item.tasks,
+                    options: [
+                        { icon: 'edit', label: 'Editar' },
+                        { icon: 'delete', label: 'Excluir' }
+                    ]
+                }
+                itens.push(data);
+            }
+
+            this.dataSource = itens;
         });
     }
 
     handleTableAction(event: { label: string; row: any }) {
         switch (event.label) {
             case 'Editar':
-                //this.editar(event.row);
-                console.log('EDITAR ' + event.row);
+                console.log('EDITAR ' + event.row.id);
+
+
                 break;
             case 'Excluir':
-                //this.excluir(event.row);
-                console.log('DELETAR ' + event.row);
+                console.log('DELETAR ' + event.row.code);
+
+                this.onDelete(event.row.code);
                 break;
             default:
                 console.warn('Ação não reconhecida:', event.label);
         }
+    }
+
+    async onDelete(code: string) {
+        await this.dbService.delete("tracker", "code", code);
+        this.listTracker();
     }
 
     mesAnoSelecionado: string = this.pegarMesAtual();
@@ -160,9 +132,13 @@ export class Tracker {
         return new Date(ano, mes - 1);
     }
 
+
     onNavigateRegisterTracker() {
         this.showNewTrackerModal = false;
 
-        this.router.navigate(['tracker', 'register']);
+        let formatDate = this.dataTarefa.toLocaleDateString('pt-BR');
+        let finalDate = formatDate.replaceAll('/', '-');
+
+        this.router.navigate(['tracker', 'register', finalDate]);
     }
 }

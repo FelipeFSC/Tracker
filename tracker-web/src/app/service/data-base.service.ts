@@ -7,6 +7,7 @@ import { audit } from 'rxjs';
     providedIn: 'root',
 })
 export class DataBaseService {
+
     private db: any;
 
     constructor() {
@@ -42,6 +43,20 @@ export class DataBaseService {
     public async findOne(tableName: string, column: string, value: string) {
         return await this.db[tableName].where(column).equals(value).first();
     }
+
+    public async findByDate(tableName: string, column: string, date: Date) {
+        const start = new Date(date);
+        start.setHours(0, 0, 0, 0);
+
+        const end = new Date(date);
+        end.setHours(23, 59, 59, 999);
+
+        return await this.db[tableName]
+            .where(column)
+            .between(start, end, true, true)
+            .toArray();
+    }
+
 
     public async delete(tableName: string, column: string, value: string) {
         return await this.db[tableName]

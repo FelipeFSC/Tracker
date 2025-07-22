@@ -1,7 +1,7 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { DataBaseService } from '../../service/data-base.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-tracker-register',
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
     styleUrl: './tracker-register.css',
 })
 export class TrackerRegister {
+
     @ViewChildren('lastTask') lastTasks!: QueryList<ElementRef>;
 
     isMobile = false;
@@ -18,10 +19,13 @@ export class TrackerRegister {
 
     isOpen: boolean = false;
 
+    date: Date = new Date();
+
     constructor(
         private breakpointObserver: BreakpointObserver,
         private dbService: DataBaseService,
-        private router: Router
+        private router: Router,
+        private activatedRoute: ActivatedRoute
     ) {
         this.breakpointObserver
             .observe(['(max-width: 768px)'])
@@ -31,6 +35,16 @@ export class TrackerRegister {
     }
 
     ngOnInit() {
+        this.activatedRoute.paramMap.subscribe(params => {
+            const data = params.get('date');
+            const [dia, mes, ano] = data!.split('-').map(Number);
+            const dateObj = new Date(ano, mes - 1, dia);
+
+            this.date = dateObj;
+
+            console.log(dateObj);
+        });
+
         this.addTask();
     }
 
@@ -72,7 +86,7 @@ export class TrackerRegister {
     onSave() {
         console.log('Tarefas enviadas:', this.tasks);
         let taskList = this.tasks.map((item) => ({
-            code: 'tracker-' + new Date().getTime(),
+            code: 'tracker-' + this.date.getTime(),
             startTime: item.startTime,
             endTime: item.endTime,
             description: item.description,
@@ -80,10 +94,10 @@ export class TrackerRegister {
             type: item.type,
             serviceOrder: item.serviceOrder,
         }));
-        
+
         let tracker = {
-            code: 'tracker-' + new Date().getTime(),
-            date: new Date(),
+            code: 'tracker-' + this.date.getTime(),
+            date: this.date,
             status: null,
             tasks: taskList,
         };

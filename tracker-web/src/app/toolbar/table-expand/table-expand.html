@@ -1,68 +1,3 @@
-<!--
-<table class="table main-table">
-    <thead>
-        <tr>
-            <th class="col-expand"></th>
-            <th class="col-status"></th>
-            <ng-container *ngFor="let col of columns">
-                <th class="col-data">{{ col.label }}</th>
-            </ng-container>
-            <th class="col-actions">{{ actionsButton.label }}</th>
-        </tr>
-    </thead>
-    <tbody>
-        <ng-container *ngFor="let row of data">
-            <tr (click)="onRowClick($event, row.id)">
-                <td class="col-expand">
-                    <mat-icon>
-                        {{ expandedRowIds.includes(row.id)? 'expand_less' : 'expand_more' }}
-                    </mat-icon>
-                </td>
-
-                <td class="col-status">
-                    <span class="status-dot" [ngClass]="row.status"></span>
-                </td>
-
-                <ng-container *ngFor="let col of columns">
-                    <td class="col-data">{{ row[col.key] }}</td>
-                </ng-container>
-
-                <td class="col-actions">
-                    <button matIconButton [matMenuTriggerFor]="actionsMenuRef"
-                        (click)="openMenuForRow(row); $event.stopPropagation()">
-                        <mat-icon>{{ actionsButton.icon }}</mat-icon> {{ actionsButton.label }}
-                    </button>
-                </td>
-            </tr>
-
-            <tr *ngIf="expandedRowIds.includes(row.id)" class="expanded-row">
-                <td class="expanded-container" [attr.colspan]="columns.length + 3">
-                    <div class="inner-table-wrapper" style="background-color: white;">
-                        <table class="table inner-table">
-                            <thead>
-                                <tr>
-                                    <ng-container *ngFor="let col of expandedColumns">
-                                        <th>{{ col.label }}</th>
-                                    </ng-container>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let item of row[expandedDataKey]; let i = index">
-                                    <ng-container *ngFor="let col of expandedColumns">
-                                        <td>{{ item[col.key] }}</td>
-                                    </ng-container>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </td>
-            </tr>
-
-        </ng-container>
-    </tbody>
-</table>
--->
-
 <table class="tabela-modern tabela-principal">
     <thead>
         <tr>
@@ -92,17 +27,27 @@
                         </td>
                     </ng-container>
                     <ng-container *ngIf="coluna.key !== 'status'">
-                        <td>{{ row[coluna.label] }}</td>
+                        <td>{{ row[coluna.key] }}</td>
                     </ng-container>
 
                 </ng-container>
 
-                <td>
-                    <button matIconButton [matMenuTriggerFor]="actionsMenuRef"
-                        (click)="openMenuForRow(row); $event.stopPropagation()">
-                        <mat-icon>{{ actionsButton.icon }}</mat-icon> {{ actionsButton.label }}
-                    </button>
-                </td>
+                <ng-container *ngIf="row.options">
+                    <td>
+                        <mat-menu #actionsMenuRef="matMenu">
+                            <button mat-menu-item *ngFor="let action of row.options"
+                                    (click)="onActionClick(action.label, selectedRowForMenu)">
+                                <mat-icon>{{ action.icon }}</mat-icon>
+                                <span>{{ action.label }}</span>
+                            </button>
+                        </mat-menu>
+
+                        <button matIconButton [matMenuTriggerFor]="actionsMenuRef"
+                                (click)="openMenuForRow(row); $event.stopPropagation()">
+                            <mat-icon>{{ actionsButton.icon }}</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
             </tr>
 
             <!-- Linha de detalhes -->
@@ -119,10 +64,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <ng-container *ngFor="let row2 of row['detalhes']">
+                            <ng-container *ngFor="let row2 of row[expandedDataKey]">
                                 <tr>
                                     <ng-container *ngFor="let coluna of expandedColumns">
-                                        <td>{{ row2[coluna.label] }}</td>
+                                        <td>{{ row2[coluna.key] }}</td>
                                     </ng-container>
                                 </tr>
                             </ng-container>
@@ -133,10 +78,3 @@
         </ng-container>
     </tbody>
 </table>
-
-<mat-menu #actionsMenuRef="matMenu">
-    <button mat-menu-item *ngFor="let action of actionsMenu" (click)="onActionClick(action.label, selectedRowForMenu)">
-        <mat-icon>{{ action.icon }}</mat-icon>
-        <span>{{ action.label }}</span>
-    </button>
-</mat-menu>

@@ -4,8 +4,9 @@ import { TrackerRegister } from "./tracker-register/tracker-register";
 import { Tracker } from "./tracker";
 
 const trackerRoutes: Routes = [
-    { path:'', component: Tracker },
-    { path:'register', component: TrackerRegister }
+    { path: '', component: Tracker },
+    { path: 'register', component: TrackerRegister },
+    { path: 'register/:date', component: TrackerRegister }
 ];
 
 @NgModule({
