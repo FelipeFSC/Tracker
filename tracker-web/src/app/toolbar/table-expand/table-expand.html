@@ -67,14 +67,14 @@
     <thead>
         <tr>
             <th></th>
-            <ng-container *ngFor="let coluna of titulos1">
-                <th>{{ coluna }}</th>
+            <ng-container *ngFor="let coluna of columns">
+                <th>{{ coluna.label }}</th>
             </ng-container>
-            <th>menu</th>
+            <th>Menu</th>
         </tr>
     </thead>
     <tbody>
-        <ng-container *ngFor="let row of lista let i = index">
+        <ng-container *ngFor="let row of data let i = index">
             <!-- Linha principal -->
             <tr class="linha-principal" [ngClass]="{
                         'zebra-claro': i % 2 === 0,
@@ -85,14 +85,14 @@
                     </mat-icon>
                 </td>
 
-                <ng-container *ngFor="let coluna of titulos1">
-                    <ng-container *ngIf="coluna === 'status'">
+                <ng-container *ngFor="let coluna of columns">
+                    <ng-container *ngIf="coluna.key === 'status'">
                         <td class="status-cell">
                             <span class="status-dot" [ngClass]="row.status"></span>
                         </td>
                     </ng-container>
-                    <ng-container *ngIf="coluna !== 'status'">
-                        <td>{{ row[coluna] }}</td>
+                    <ng-container *ngIf="coluna.key !== 'status'">
+                        <td>{{ row[coluna.label] }}</td>
                     </ng-container>
 
                 </ng-container>
@@ -107,22 +107,22 @@
 
             <!-- Linha de detalhes -->
             <tr *ngIf="expandidos.includes(row.id)" [@expandCollapse] class="linha-expandida">
-                <td [attr.colspan]="titulos1.length + 2" [ngClass]="{
+                <td [attr.colspan]="columns.length + 2" [ngClass]="{
                         'zebra-claro': i % 2 === 0,
                         'zebra-escuro': i % 2 === 1}">
                     <table class="tabela-modern sub-tabela">
                         <thead>
                             <tr>
-                                <ng-container *ngFor="let coluna of titulos2">
-                                    <th>{{ coluna }}</th>
+                                <ng-container *ngFor="let coluna of expandedColumns">
+                                    <th>{{ coluna.label }}</th>
                                 </ng-container>
                             </tr>
                         </thead>
                         <tbody>
                             <ng-container *ngFor="let row2 of row['detalhes']">
                                 <tr>
-                                    <ng-container *ngFor="let coluna of titulos2">
-                                        <td>{{ row2[coluna] }}</td>
+                                    <ng-container *ngFor="let coluna of expandedColumns">
+                                        <td>{{ row2[coluna.label] }}</td>
                                     </ng-container>
                                 </tr>
                             </ng-container>

@@ -2,6 +2,7 @@ import { registerLocaleData } from '@angular/common';
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import localePt from '@angular/common/locales/pt';
 import { Router } from '@angular/router';
+import { DataBaseService } from '../service/data-base.service';
 
 registerLocaleData(localePt);
 
@@ -15,6 +16,7 @@ export class Tracker {
     columns = [
         { key: 'name', label: 'Nome' },
         { key: 'email', label: 'Email' },
+        { key: 'status', label: 'Status' },
     ];
 
     filtroSelecionado = 'exact';
@@ -23,55 +25,57 @@ export class Tracker {
     dataTarefa: Date = new Date();
 
     expandedColumns = [
-        { key: 'hrInicio', label: 'H. inicio' },
-        { key: 'hrFim', label: 'H. Término' },
-        { key: 'atividade', label: 'Tipo atividade' },
-        { key: 'solicitante', label: 'Solicitante' },
-        { key: 'os', label: 'OS' },
-        { key: 'obs', label: 'Observações' },
+        { key: 'startTime', label: 'H. inicio' },
+        { key: 'endTime', label: 'H. Término' },
+        { key: 'type', label: 'Tipo atividade' },
+        { key: 'applicant', label: 'Solicitante' },
+        { key: 'serviceOrder', label: 'OS' },
+        { key: 'description', label: 'Observações' },
     ];
 
-    rows = [
-        {
-            id: 1,
-            name: 'João',
-            email: 'joao@email.com',
-            status: 'success',
-            details: [
-                {
-                    hrInicio: '10:00',
-                    hrFim: '11:00',
-                    atividade: 'Desenvolvimento',
-                    solicitante: 'Coca Cola',
-                },
-                {
-                    hrInicio: '11:00',
-                    hrFim: '13:00',
-                    atividade: 'Desenvolvimento',
-                    solicitante: 'Coca Cola',
-                },
-                {
-                    hrInicio: '13:00',
-                    hrFim: '16:00',
-                    atividade: 'Desenvolvimento',
-                    solicitante: 'Coca Cola',
-                },
-            ],
-        },
-        {
-            id: 2,
-            name: 'PEDRO',
-            email: 'PEDRO@email.com',
-            status: 'success',
-            details: [
-                {
-                    hrInicio: '10:00',
-                    hrFim: '11:00',
-                },
-            ],
-        },
-        // outros dados...
-    ];
+    dataSource: any[] = [];
+
+    // rows = [
+    //     {
+    //         id: 1,
+    //         name: 'João',
+    //         email: 'joao@email.com',
+    //         status: 'success',
+    //         details: [
+    //             {
+    //                 hrInicio: '10:00',
+    //                 hrFim: '11:00',
+    //                 atividade: 'Desenvolvimento',
+    //                 solicitante: 'Coca Cola',
+    //             },
+    //             {
+    //                 hrInicio: '11:00',
+    //                 hrFim: '13:00',
+    //                 atividade: 'Desenvolvimento',
+    //                 solicitante: 'Coca Cola',
+    //             },
+    //             {
+    //                 hrInicio: '13:00',
+    //                 hrFim: '16:00',
+    //                 atividade: 'Desenvolvimento',
+    //                 solicitante: 'Coca Cola',
+    //             },
+    //         ],
+    //     },
+    //     {
+    //         id: 2,
+    //         name: 'PEDRO',
+    //         email: 'PEDRO@email.com',
+    //         status: 'success',
+    //         details: [
+    //             {
+    //                 hrInicio: '10:00',
+    //                 hrFim: '11:00',
+    //             },
+    //         ],
+    //     },
+    //     // outros dados...
+    // ];
 
     actionsButton = { icon: 'more_vert', label: '' };
 
@@ -86,7 +90,17 @@ export class Tracker {
         },
     ];
 
-    constructor(private router: Router) {}
+    constructor(private router: Router, private dbService: DataBaseService) {}
+
+    ngOnInit() {
+        this.listTracker();
+    }
+
+    listTracker() {
+        this.dbService.findAll('tracker', 'date').then((data: any[]) => {
+            this.dataSource = data;
+        });
+    }
 
     handleTableAction(event: { label: string; row: any }) {
         switch (event.label) {
@@ -147,7 +161,6 @@ export class Tracker {
     }
 
     onNavigateRegisterTracker() {
-        console.log('Tarefa criada com data:', this.dataTarefa);
         this.showNewTrackerModal = false;
 
         this.router.navigate(['tracker', 'register']);

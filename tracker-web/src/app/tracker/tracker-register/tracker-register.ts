@@ -1,6 +1,7 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { DataBaseService } from '../../service/data-base.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-tracker-register',
@@ -19,7 +20,8 @@ export class TrackerRegister {
 
     constructor(
         private breakpointObserver: BreakpointObserver,
-        private dbService: DataBaseService
+        private dbService: DataBaseService,
+        private router: Router
     ) {
         this.breakpointObserver
             .observe(['(max-width: 768px)'])
@@ -69,23 +71,25 @@ export class TrackerRegister {
 
     onSave() {
         console.log('Tarefas enviadas:', this.tasks);
-        for (let item of this.tasks) {
-            this.createTaskElement(item);
-        }
-    }
-
-    createTaskElement(item: any) {
-        console.log(item);
-        let task = {
+        let taskList = this.tasks.map((item) => ({
+            code: 'tracker-' + new Date().getTime(),
             startTime: item.startTime,
             endTime: item.endTime,
             description: item.description,
             applicant: item.applicant,
             type: item.type,
             serviceOrder: item.serviceOrder,
-            date: new Date()
+        }));
+        
+        let tracker = {
+            code: 'tracker-' + new Date().getTime(),
+            date: new Date(),
+            status: null,
+            tasks: taskList,
         };
 
-        this.dbService.add('task', task);
+        this.dbService.add('tracker', tracker);
+
+        this.router.navigate(['tracker']);
     }
 }

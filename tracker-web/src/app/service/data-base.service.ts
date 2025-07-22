@@ -17,8 +17,8 @@ export class DataBaseService {
         this.db = new Dexie('TrackerDB');
 
         this.db.version(1).stores({
-            tracker: '++id, &code, date, task',
-            task: '++id, &code, startTime, endTime, type, applicant, serviceOrder, description',
+            tracker: '++id, &code, date, taskList, status',
+            // task: '++id, &code, startTime, endTime, type, applicant, serviceOrder, description',
         });
     }
 
