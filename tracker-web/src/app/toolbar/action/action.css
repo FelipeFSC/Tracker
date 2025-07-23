@@ -1,0 +1,16 @@
+.principal {
+    z-index: 999 !important;
+    color: white;
+    background-color: var(--color-primary);
+}
+
+.header {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 999 !important;
+}
+
+.space {
+    height: 70px;
+}

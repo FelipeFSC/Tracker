@@ -6,10 +6,22 @@
     <mat-card style="padding: 10px; margin: auto; max-width: 1000px;">
 
         <div class="date-upload-wrapper">
-            <button mat-icon-button class="upload-button" aria-label="Upload">
+            <button mat-icon-button class="upload-button" aria-label="Upload" (click)="onUpload()">
                 <mat-icon style="color: #4a4a4a;">upload</mat-icon>
             </button>
 
+<!--
+            <mat-menu #actionsMenuRef="matMenu">
+                <button mat-menu-item >
+                    <mat-icon style="color: green;">grid_on</mat-icon>
+                    <span>Upload <span style="color: green;">Excel</span></span>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon style="color: darkorange;">code</mat-icon>
+                    <span>Upload <span style="color: darkorange;">Json</span></span>
+                </button>
+            </mat-menu>
+-->
             <div class="box-menu">
                 <div class="date-select-box">
                     <button mat-icon-button (click)="alterarMes(-1)">

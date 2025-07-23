@@ -132,7 +132,6 @@ export class Tracker {
         return new Date(ano, mes - 1);
     }
 
-
     onNavigateRegisterTracker() {
         this.showNewTrackerModal = false;
 
@@ -140,5 +139,9 @@ export class Tracker {
         let finalDate = formatDate.replaceAll('/', '-');
 
         this.router.navigate(['tracker', 'register', finalDate]);
+    }
+
+    onUpload() {
+        this.router.navigate(['upload']);
     }
 }

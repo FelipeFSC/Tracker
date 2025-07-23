@@ -4,14 +4,14 @@ import { Principal } from './principal/principal';
 import { Navigation } from './navigation/navigation';
 import { MaterialModule } from '../material/material-module';
 import { TableExpand } from './table-expand/table-expand';
-import { Table } from './table/table';
+import { Action } from './action/action';
 
 @NgModule({
     declarations: [
         Navigation,
         Principal,
         TableExpand,
-        Table,
+        Action,
     ],
     imports: [
         CommonModule,
@@ -21,7 +21,7 @@ import { Table } from './table/table';
         Navigation,
         Principal,
         TableExpand,
-        Table,
+        Action
     ]
 })
 export class ToolbarModule { }

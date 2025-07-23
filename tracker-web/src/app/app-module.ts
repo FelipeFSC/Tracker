@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToolbarModule } from './toolbar/toolbar-module';
 import { Tracker } from './tracker/tracker';
 
-
 @NgModule({
     declarations: [
         App,
