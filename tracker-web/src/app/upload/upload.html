@@ -1,3 +1,102 @@
 <app-action [title]="'Upload'" [labels]="" (onClose)="onClose()"></app-action>
 
-<h1>aoaoaoa</h1>
+<br><br><br><br>
+
+<mat-card class="app-content" style="margin: auto; max-width: 1000px;">
+    <div class="dropzone" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
+        [class.hovering]="isHovering">
+        <input type="file" (change)="onFileSelect($event)" multiple hidden #fileInput>
+
+        <div style="display: flex; justify-content: space-between;">
+            <button mat-raised-button [ngStyle]="{ 'background-color': isJson ? '#FFA500' : '#4CAF50', color: 'white' }"
+                (click)="toggleUploadType()">
+                <mat-icon>
+                    {{ isJson ? 'data_object' : 'table_view' }}
+                </mat-icon>
+                {{ isJson ? 'Upload JSON' : 'Upload Excel' }}
+            </button>
+        </div>
+
+        <br><br>
+
+        <div *ngIf="!isJson">
+            <div style="display: flex; gap: 16px;">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Linha Inicio</mat-label>
+                    <input matInput type="number" name="linhaInicio" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Linha Fim</mat-label>
+                    <input matInput type="number" name="linhaFim" />
+                </mat-form-field>
+            </div>
+
+            <div class="form-grid">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Colaborador</mat-label>
+                    <mat-select name="colaborador" [(ngModel)]="fields[0].column">
+                        <mat-option *ngFor="let letter of cols let i = index" [value]="i">{{ letter }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Data</mat-label>
+                    <mat-select name="data" [(ngModel)]="fields[1].column">
+                        <mat-option *ngFor="let letter of cols let i = index" [value]="i">{{ letter }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Horário - Início</mat-label>
+                    <mat-select name="horarioInicio" [(ngModel)]="fields[2].column">
+                        <mat-option *ngFor="let letter of cols let i = index" [value]="i">{{ letter }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Horário - Término</mat-label>
+                    <mat-select name="horarioTermino" [(ngModel)]="fields[3].column">
+                        <mat-option *ngFor="let letter of cols let i = index" [value]="i">{{ letter }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Tipo Atividade</mat-label>
+                    <mat-select name="tipoAtividade" [(ngModel)]="fields[4].column">
+                        <mat-option *ngFor="let letter of cols let i = index" [value]="i">{{ letter }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Solicitante</mat-label>
+                    <mat-select name="solicitante" [(ngModel)]="fields[5].column">
+                        <mat-option *ngFor="let letter of cols let i = index" [value]="i">{{ letter }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>OS</mat-label>
+                    <mat-select name="os" [(ngModel)]="fields[6].column">
+                        <mat-option *ngFor="let letter of cols let i = index" [value]="i">{{ letter }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Observações</mat-label>
+                    <mat-select name="observacoes" [(ngModel)]="fields[7].column">
+                        <mat-option *ngFor="let letter of cols let i = index" [value]="i">{{ letter }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </div>
+        </div>
+
+        <br>
+
+        <button mat-raised-button color="primary" (click)="fileInput.click()">
+            <mat-icon>cloud_upload</mat-icon>
+            Enviar Arquivos
+        </button>
+    </div>
+</mat-card>

@@ -28,6 +28,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 @NgModule({
     imports: [
@@ -61,7 +62,8 @@ import { MatTreeModule } from '@angular/material/tree';
         MatNativeDateModule,
         ReactiveFormsModule,
         MatTreeModule,
-        FormsModule
+        FormsModule,
+        MatSlideToggle
     ],
     declarations: [],
     exports: [
@@ -95,6 +97,7 @@ import { MatTreeModule } from '@angular/material/tree';
         ReactiveFormsModule,
         MatTreeModule,
         FormsModule,
+        MatSlideToggle
     ],
     providers: [
         { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
