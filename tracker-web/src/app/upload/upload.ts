@@ -31,6 +31,8 @@ export class Upload {
 
     isJson = false;
 
+    selectedFiles: File[] = [];
+
     constructor(
         private router: Router
     ) { }
@@ -58,6 +60,8 @@ export class Upload {
         this.isHovering = false;
         if (event.dataTransfer?.files) {
             this.handleFiles(event.dataTransfer.files);
+            this.selectedFiles = Array.from(event.dataTransfer.files);
+
         }
     }
 
@@ -65,6 +69,8 @@ export class Upload {
         const input = event.target as HTMLInputElement;
         if (input.files) {
             this.handleFiles(input.files);
+                this.selectedFiles = Array.from(input.files);
+
         }
     }
 

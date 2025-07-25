@@ -15,6 +15,16 @@
                 </mat-icon>
                 {{ isJson ? 'Upload JSON' : 'Upload Excel' }}
             </button>
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <mat-list-item *ngFor="let file of selectedFiles">
+                    <span matLine>{{ file.name }}</span>
+                    <span matLine class="secondary">{{ file.size / 1024 | number:'1.0-1' }} KB</span>
+                </mat-list-item>
+                <button mat-raised-button color="primary" (click)="fileInput.click()">
+                    <mat-icon>cloud_upload</mat-icon>
+                    Enviar Arquivos
+                </button>
+            </div>
         </div>
 
         <br><br>
@@ -95,8 +105,7 @@
         <br>
 
         <button mat-raised-button color="primary" (click)="fileInput.click()">
-            <mat-icon>cloud_upload</mat-icon>
-            Enviar Arquivos
+            Verificar
         </button>
     </div>
 </mat-card>
