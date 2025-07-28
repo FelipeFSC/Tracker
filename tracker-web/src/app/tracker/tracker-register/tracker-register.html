@@ -8,7 +8,7 @@
                 <h2>Tracker</h2>
 
                 <div id="tasks-container">
-                    <div class="grouped-fields" *ngFor="let task of tasks; let i = index" #lastTask>
+                    <div class="grouped-fields" *ngFor="let task of tracker.tasks; let i = index" #lastTask>
                         <div class="form-row" *ngIf="!isOpen">
                             <mat-form-field appearance="outline">
                                 <mat-label>Hora Início</mat-label>
@@ -98,7 +98,7 @@
                 <h2>Tracker</h2>
 
                 <div id="tasks-container">
-                    <div class="grouped-fields-desktop" *ngFor="let task of tasks; let i = index" #lastTask>
+                    <div class="grouped-fields-desktop" *ngFor="let task of tracker.tasks; let i = index" #lastTask>
                         <!-- Linha 1: Hora Início | Hora Fim -->
                         <div class="form-row-desktop">
                             <mat-form-field appearance="outline">
@@ -150,7 +150,7 @@
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Observações</mat-label>
                                 <textarea matInput rows="2" placeholder="" name="obs"
-                                    name="descricao"></textarea>
+                                    name="descricao" [(ngModel)]="task.description"></textarea>
                             </mat-form-field>
                         </div>
 

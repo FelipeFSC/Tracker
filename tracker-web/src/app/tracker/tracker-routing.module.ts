@@ -6,7 +6,8 @@ import { Tracker } from "./tracker";
 const trackerRoutes: Routes = [
     { path: '', component: Tracker },
     { path: 'register', component: TrackerRegister },
-    { path: 'register/:date', component: TrackerRegister }
+    { path: 'register/:date', component: TrackerRegister },
+    { path: ':trackerId/register', component: TrackerRegister }
 ];
 
 @NgModule({

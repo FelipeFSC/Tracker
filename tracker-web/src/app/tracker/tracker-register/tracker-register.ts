@@ -2,6 +2,7 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { DataBaseService } from '../../service/data-base.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TrackerModel } from '../tracker.model';
 
 @Component({
     selector: 'app-tracker-register',
@@ -10,15 +11,13 @@ import { ActivatedRoute, Router } from '@angular/router';
     styleUrl: './tracker-register.css',
 })
 export class TrackerRegister {
-
     @ViewChildren('lastTask') lastTasks!: QueryList<ElementRef>;
 
     isMobile = false;
 
-    tasks: any[] = [];
-
     isOpen: boolean = false;
 
+    tracker: TrackerModel.Tracker = {};
     date: Date = new Date();
 
     constructor(
@@ -35,17 +34,34 @@ export class TrackerRegister {
     }
 
     ngOnInit() {
-        this.activatedRoute.paramMap.subscribe(params => {
+        this.extractParams();
+    }
+
+    extractParams() {
+        this.activatedRoute.paramMap.subscribe((params) => {
             const data = params.get('date');
-            const [dia, mes, ano] = data!.split('-').map(Number);
-            const dateObj = new Date(ano, mes - 1, dia);
+            const trackerId = params.get('trackerId');
 
-            this.date = dateObj;
+            if (data) {
+                const [dia, mes, ano] = data!.split('-').map(Number);
+                const dateObj = new Date(ano, mes - 1, dia);
+                this.date = dateObj;
+                this.tracker.tasks = [];
 
-            console.log(dateObj);
+                this.addTask();
+            }
+
+            if (trackerId) {
+                this.dbService
+                    .findOne('tracker', 'id', trackerId)
+                    .then((tracker: any) => {
+                        if (tracker) {
+                            this.tracker = tracker;
+                            this.tracker.tasks = tracker.tasks || [];
+                        }
+                    });
+            }
         });
-
-        this.addTask();
     }
 
     ngAfterViewChecked() {
@@ -60,7 +76,9 @@ export class TrackerRegister {
         const currentTime = currentDate.toTimeString().slice(0, 5); // "HH:mm"
 
         const lastTask =
-            this.tasks.length > 0 ? this.tasks[this.tasks.length - 1] : null;
+            this.tracker.tasks!.length > 0
+                ? this.tracker.tasks![this.tracker.tasks!.length - 1]
+                : null;
 
         // Atualiza endTime da última tarefa, se existir
         if (lastTask) {
@@ -68,10 +86,10 @@ export class TrackerRegister {
         }
 
         // Cria a nova tarefa, copiando a descrição da última se existir
-        this.tasks.push({
+        this.tracker.tasks!.push({
             startTime: currentTime,
             endTime: '',
-            description: lastTask ? lastTask.descricao : '',
+            description: lastTask ? lastTask.description : '',
         });
     }
 
@@ -80,12 +98,11 @@ export class TrackerRegister {
     }
 
     removeTask(index: number) {
-        this.tasks.splice(index, 1);
+        this.tracker.tasks?.splice(index, 1);
     }
 
     onSave() {
-        console.log('Tarefas enviadas:', this.tasks);
-        let taskList = this.tasks.map((item) => ({
+        let taskList = this.tracker.tasks!.map((item) => ({
             code: 'tracker-' + this.date.getTime(),
             startTime: item.startTime,
             endTime: item.endTime,
@@ -96,13 +113,24 @@ export class TrackerRegister {
         }));
 
         let tracker = {
-            code: 'tracker-' + this.date.getTime(),
+            code: 'task-' + this.date.getTime(),
             date: this.date,
             status: null,
             tasks: taskList,
         };
 
-        this.dbService.add('tracker', tracker);
+        if (this.tracker.id) {
+            this.dbService
+                .update('tracker', 'id', this.tracker.id, tracker)
+                .then(() => {
+                    console.log('Tracker updated successfully');
+                });
+        } else {
+            this.dbService.add('tracker', tracker)
+            .then(() => {
+                    console.log('Tracker create successfully');
+                });;
+        }
 
         this.router.navigate(['tracker']);
     }

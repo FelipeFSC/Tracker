@@ -13,11 +13,10 @@ registerLocaleData(localePt);
     styleUrl: './tracker.css',
 })
 export class Tracker {
-
     columns = [
         { key: 'status', label: 'Status' },
-        { key: 'name', label: 'Name' },
-        { key: 'date', label: 'Date' },
+        { key: 'name', label: 'Nome' },
+        { key: 'date', label: 'Data' },
     ];
     expandedColumns = [
         { key: 'startTime', label: 'H. inicio' },
@@ -35,9 +34,7 @@ export class Tracker {
 
     dataTarefa: Date = new Date();
 
-    constructor(
-        private router: Router,
-        private dbService: DataBaseService) { }
+    constructor(private router: Router, private dbService: DataBaseService) {}
 
     ngOnInit() {
         this.listTracker();
@@ -51,15 +48,15 @@ export class Tracker {
                 let data = {
                     id: item.id,
                     code: item.code,
-                    name: "Cleber",
+                    name: 'Cleber',
                     date: item.date.toLocaleDateString('pt-BR'),
-                    status: "success",
+                    status: 'success',
                     tasks: item.tasks,
                     options: [
                         { icon: 'edit', label: 'Editar' },
-                        { icon: 'delete', label: 'Excluir' }
-                    ]
-                }
+                        { icon: 'delete', label: 'Excluir' },
+                    ],
+                };
                 itens.push(data);
             }
 
@@ -71,12 +68,10 @@ export class Tracker {
         switch (event.label) {
             case 'Editar':
                 console.log('EDITAR ' + event.row.id);
-
-
+                this.onEdit(event.row.id);
                 break;
             case 'Excluir':
                 console.log('DELETAR ' + event.row.code);
-
                 this.onDelete(event.row.code);
                 break;
             default:
@@ -85,8 +80,13 @@ export class Tracker {
     }
 
     async onDelete(code: string) {
-        await this.dbService.delete("tracker", "code", code);
+        await this.dbService.delete('tracker', 'code', code);
         this.listTracker();
+    }
+
+    onEdit(id: string) {
+        
+        this.router.navigate(['tracker', id, 'register']);
     }
 
     mesAnoSelecionado: string = this.pegarMesAtual();
