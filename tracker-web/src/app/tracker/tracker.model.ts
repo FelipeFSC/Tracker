@@ -9,7 +9,7 @@ export namespace TrackerModel {
         id?: string;
         code?: string;
         personName?: string;
-        date?: string;
+        date?: Date;
         status?: Status;
         tasks?: Task[];
     }

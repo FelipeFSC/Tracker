@@ -11,6 +11,7 @@ import { TrackerModel } from '../tracker.model';
     styleUrl: './tracker-register.css',
 })
 export class TrackerRegister {
+
     @ViewChildren('lastTask') lastTasks!: QueryList<ElementRef>;
 
     isMobile = false;
@@ -18,7 +19,6 @@ export class TrackerRegister {
     isOpen: boolean = false;
 
     tracker: TrackerModel.Tracker = {};
-    date: Date = new Date();
 
     constructor(
         private breakpointObserver: BreakpointObserver,
@@ -39,13 +39,13 @@ export class TrackerRegister {
 
     extractParams() {
         this.activatedRoute.paramMap.subscribe((params) => {
-            const data = params.get('date');
+            const date = params.get('date');
             const trackerId = params.get('trackerId');
 
-            if (data) {
-                const [dia, mes, ano] = data!.split('-').map(Number);
-                const dateObj = new Date(ano, mes - 1, dia);
-                this.date = dateObj;
+            if (date) {
+                const [day, month, year] = date!.split('-').map(Number);
+                const dateObj = new Date(year, month - 1, day);
+                this.tracker.date = dateObj;
                 this.tracker.tasks = [];
 
                 this.addTask();
@@ -57,7 +57,6 @@ export class TrackerRegister {
                     .then((tracker: any) => {
                         if (tracker) {
                             this.tracker = tracker;
-                            this.tracker.tasks = tracker.tasks || [];
                         }
                     });
             }
@@ -103,7 +102,7 @@ export class TrackerRegister {
 
     onSave() {
         let taskList = this.tracker.tasks!.map((item) => ({
-            code: 'tracker-' + this.date.getTime(),
+            code: 'tracker-' + new Date().getTime(),
             startTime: item.startTime,
             endTime: item.endTime,
             description: item.description,
@@ -113,8 +112,8 @@ export class TrackerRegister {
         }));
 
         let tracker = {
-            code: 'task-' + this.date.getTime(),
-            date: this.date,
+            code: 'task-' + new Date().getTime(),
+            date: this.tracker.date,
             status: null,
             tasks: taskList,
         };

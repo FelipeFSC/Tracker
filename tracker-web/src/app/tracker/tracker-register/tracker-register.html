@@ -5,7 +5,7 @@
     <div class="app-content">
         <div class="form-container">
             <form (ngSubmit)="onSave()">
-                <h2>Tracker</h2>
+                <h2>Tracker - {{this.tracker.date!.toLocaleDateString('pt-BR')}}</h2>
 
                 <div id="tasks-container">
                     <div class="grouped-fields" *ngFor="let task of tracker.tasks; let i = index" #lastTask>
@@ -95,7 +95,7 @@
     <div class="app-content">
         <div class="form-container-desktop">
             <form (ngSubmit)="onSave()">
-                <h2>Tracker</h2>
+                <h2>Tracker - {{this.tracker.date!.toLocaleDateString('pt-BR')}}</h2>
 
                 <div id="tasks-container">
                     <div class="grouped-fields-desktop" *ngFor="let task of tracker.tasks; let i = index" #lastTask>
