@@ -43,7 +43,6 @@ export class Tracker {
     listTracker() {
         this.dbService.findAll('tracker', 'date').then((list: any[]) => {
             let itens = [];
-            console.log();
             for (let item of list) {
                 let data = {
                     id: item.id,
