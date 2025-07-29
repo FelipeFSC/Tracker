@@ -5,7 +5,7 @@
 <mat-card class="app-content" style="margin: auto; max-width: 1000px;">
     <div class="dropzone" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
         [class.hovering]="isHovering">
-        <input type="file" (change)="onFileSelect($event)" multiple hidden #fileInput>
+        <input type="file" id="inputFile" (change)="onFileSelect($event)" hidden #fileInput>
 
         <div style="display: flex; justify-content: space-between;">
             <button mat-raised-button [ngStyle]="{ 'background-color': isJson ? '#FFA500' : '#4CAF50', color: 'white' }"
@@ -16,14 +16,23 @@
                 {{ isJson ? 'Upload JSON' : 'Upload Excel' }}
             </button>
             <div style="display: flex; align-items: center; gap: 16px;">
-                <mat-list-item *ngFor="let file of selectedFiles">
-                    <span matLine>{{ file.name }}</span>
-                    <span matLine class="secondary">{{ file.size / 1024 | number:'1.0-1' }} KB</span>
+                <mat-list-item *ngIf="selectedFiles">
+                    <span matLine>{{ selectedFiles.name }}</span>
+                    <span matLine class="secondary">{{ selectedFiles.size / 1024 | number:'1.0-1' }} KB</span>
                 </mat-list-item>
-                <button mat-raised-button color="primary" (click)="fileInput.click()">
-                    <mat-icon>cloud_upload</mat-icon>
-                    Enviar Arquivos
-                </button>
+                <ng-container *ngIf="!fileSelectado">
+                    <button mat-raised-button color="primary" (click)="fileInput.click()">
+                        <mat-icon>cloud_upload</mat-icon>
+                        Enviar Arquivo
+                    </button>
+                </ng-container>
+
+                <ng-container *ngIf="fileSelectado">
+                    <button mat-raised-button style="background-color: var(--color-enfase); color: white;" (click)="deleteFile()">
+                        <mat-icon>delete</mat-icon>
+                        Deletar Arquivo
+                    </button>
+                </ng-container>
             </div>
         </div>
 
@@ -33,12 +42,12 @@
             <div style="display: flex; gap: 16px;">
                 <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Linha Inicio</mat-label>
-                    <input matInput type="number" name="linhaInicio" />
+                    <input [(ngModel)]="linhasInicio" matInput type="number" name="linhaInicio" />
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Linha Fim</mat-label>
-                    <input matInput type="number" name="linhaFim" />
+                    <input [(ngModel)]="linhasFim" matInput type="number" name="linhaFim" />
                 </mat-form-field>
             </div>
 
@@ -109,3 +118,20 @@
         </button>
     </div>
 </mat-card>
+
+<br>
+
+<mat-card class="app-content" style="margin: auto; max-width: 1000px;">
+    <app-table-expand
+        [columns]="columns"
+        [data]="dataSource"
+        [expandedColumns]="expandedColumns"
+        (actionClicked)="handleTableAction($event)"
+        >
+    </app-table-expand>
+</mat-card>
+
+<div>
+    <br>
+    <br>
+</div>
