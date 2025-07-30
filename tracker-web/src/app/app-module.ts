@@ -6,6 +6,7 @@ import { MaterialModule } from './material/material-module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToolbarModule } from './toolbar/toolbar-module';
 import { Tracker } from './tracker/tracker';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import { Tracker } from './tracker/tracker';
     ],
     providers: [
         { provide: LOCALE_ID, useValue: 'pt-BR' },
+        DatePipe
     ],
     bootstrap: [App]
 })
