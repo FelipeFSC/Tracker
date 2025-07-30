@@ -11,7 +11,6 @@ import { TrackerModel } from '../tracker.model';
     styleUrl: './tracker-register.css',
 })
 export class TrackerRegister {
-
     @ViewChildren('lastTask') lastTasks!: QueryList<ElementRef>;
 
     isMobile = false;
@@ -114,6 +113,7 @@ export class TrackerRegister {
         let tracker = {
             code: 'task-' + new Date().getTime(),
             date: this.tracker.date,
+            personName: 'NOME_SESSAO',
             status: null,
             tasks: taskList,
         };
@@ -125,10 +125,9 @@ export class TrackerRegister {
                     console.log('Tracker updated successfully');
                 });
         } else {
-            this.dbService.add('tracker', tracker)
-            .then(() => {
-                    console.log('Tracker create successfully');
-                });;
+            this.dbService.add('tracker', tracker).then(() => {
+                console.log('Tracker create successfully');
+            });
         }
 
         this.router.navigate(['tracker']);

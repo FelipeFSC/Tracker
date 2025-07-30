@@ -3,6 +3,8 @@ import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import localePt from '@angular/common/locales/pt';
 import { Router } from '@angular/router';
 import { DataBaseService } from '../service/data-base.service';
+import { TrackerModel } from './tracker.model';
+import { DateUtil } from '../util/dateUtil';
 
 registerLocaleData(localePt);
 
@@ -15,7 +17,7 @@ registerLocaleData(localePt);
 export class Tracker {
     columns = [
         { key: 'status', label: 'Status' },
-        { key: 'name', label: 'Nome' },
+        { key: 'personName', label: 'Nome' },
         { key: 'date', label: 'Data' },
     ];
     expandedColumns = [
@@ -26,51 +28,58 @@ export class Tracker {
         { key: 'serviceOrder', label: 'OS' },
         { key: 'description', label: 'Observações' },
     ];
-    dataSource: any[] = [];
+    dataSource: TrackerModel.Tracker[] = [];
 
-    filtroSelecionado = 'exact';
+    selectedFilter = 'exact';
 
     showNewTrackerModal: boolean = false;
 
-    dataTarefa: Date = new Date();
+    newTrackerDate: Date = new Date();
+
+    dateUtil: DateUtil = new DateUtil();
+
+    yearMonthSelected: string = this.getActualMonth();
+    @ViewChild('inputMes') inputMes!: ElementRef;
 
     constructor(private router: Router, private dbService: DataBaseService) {}
 
     ngOnInit() {
-        this.listTracker();
+        this.listTracker(this.yearMonthSelected);
     }
 
-    listTracker() {
-        this.dbService.findAll('tracker', 'date').then((list: any[]) => {
-            let itens = [];
-            for (let item of list) {
-                let data = {
-                    id: item.id,
-                    code: item.code,
-                    name: 'Cleber',
-                    date: item.date.toLocaleDateString('pt-BR'),
-                    status: 'success',
-                    tasks: item.tasks,
-                    options: [
-                        { icon: 'edit', label: 'Editar' },
-                        { icon: 'delete', label: 'Excluir' },
-                    ],
-                };
-                itens.push(data);
-            }
+    listTracker(yearMonth: string) {
+        let [startDate, endDate] =
+            DateUtil.getStartAndEndRangeFromMonthYear(yearMonth);
+        this.dbService
+            .findByDateRange('tracker', 'date', startDate, endDate)
+            .then((list: any[]) => {
+                let itens: TrackerModel.Tracker[] = [];
+                for (let item of list) {
+                    let data: TrackerModel.Tracker = {
+                        id: item.id,
+                        code: item.code,
+                        personName: item.personName,
+                        date: item.date.toLocaleDateString('pt-BR'),
+                        status: TrackerModel.Status['Success'],
+                        tasks: item.tasks,
+                        options: [
+                            { icon: 'edit', label: 'Editar' },
+                            { icon: 'delete', label: 'Excluir' },
+                        ],
+                    };
+                    itens.push(data);
+                }
 
-            this.dataSource = itens;
-        });
+                this.dataSource = itens;
+            });
     }
 
     handleTableAction(event: { label: string; row: any }) {
         switch (event.label) {
             case 'Editar':
-                console.log('EDITAR ' + event.row.id);
                 this.onEdit(event.row.id);
                 break;
             case 'Excluir':
-                console.log('DELETAR ' + event.row.code);
                 this.onDelete(event.row.code);
                 break;
             default:
@@ -80,42 +89,38 @@ export class Tracker {
 
     async onDelete(code: string) {
         await this.dbService.delete('tracker', 'code', code);
-        this.listTracker();
+        this.listTracker(this.yearMonthSelected);
     }
 
     onEdit(id: string) {
-        
         this.router.navigate(['tracker', id, 'register']);
     }
 
-    mesAnoSelecionado: string = this.pegarMesAtual();
-    @ViewChild('inputMes') inputMes!: ElementRef;
-
-    filtrarPorMesAno(valor: string) {
-        console.log(valor);
+    onYearMonthFilter(value: string) {
+        this.listTracker(value);
     }
 
-    pegarMesAtual(): string {
-        const hoje = new Date();
-        const ano = hoje.getFullYear();
-        const mes = (hoje.getMonth() + 1).toString().padStart(2, '0');
-        return `${ano}-${mes}`;
+    getActualMonth(): string {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = (today.getMonth() + 1).toString().padStart(2, '0');
+        return `${year}-${month}`;
     }
 
-    alterarMes(incremento: number) {
-        const [anoStr, mesStr] = this.mesAnoSelecionado.split('-');
-        const ano = parseInt(anoStr);
-        const mes = parseInt(mesStr);
+    onChangeMonth(incremento: number) {
+        const [yearSrt, monthStr] = this.yearMonthSelected.split('-');
+        const year = parseInt(yearSrt);
+        const month = parseInt(monthStr);
 
-        const novaData = new Date(ano, mes - 1 + incremento);
-        const novoAno = novaData.getFullYear();
-        const novoMes = (novaData.getMonth() + 1).toString().padStart(2, '0');
+        const newDate = new Date(year, month - 1 + incremento);
+        const newYear = newDate.getFullYear();
+        const newMonth = (newDate.getMonth() + 1).toString().padStart(2, '0');
 
-        this.mesAnoSelecionado = `${novoAno}-${novoMes}`;
-        this.filtrarPorMesAno(this.mesAnoSelecionado);
+        this.yearMonthSelected = `${newYear}-${newMonth}`;
+        this.onYearMonthFilter(this.yearMonthSelected);
     }
 
-    abrirSeletor() {
+    onOpenSelector() {
         const input = this.inputMes.nativeElement;
         input.style.pointerEvents = 'auto';
         input.focus();
@@ -123,18 +128,18 @@ export class Tracker {
         setTimeout(() => (input.style.pointerEvents = 'none'), 200);
     }
 
-    get dataSelecionadaComoDate(): Date {
-        if (!this.mesAnoSelecionado) {
-            this.mesAnoSelecionado = this.pegarMesAtual();
+    get getSelectDateAsDateObject(): Date {
+        if (!this.yearMonthSelected) {
+            this.yearMonthSelected = this.getActualMonth();
         }
-        const [ano, mes] = this.mesAnoSelecionado.split('-').map(Number);
-        return new Date(ano, mes - 1);
+        const [year, month] = this.yearMonthSelected.split('-').map(Number);
+        return new Date(year, month - 1);
     }
 
     onNavigateRegisterTracker() {
         this.showNewTrackerModal = false;
 
-        let formatDate = this.dataTarefa.toLocaleDateString('pt-BR');
+        let formatDate = this.newTrackerDate.toLocaleDateString('pt-BR');
         let finalDate = formatDate.replaceAll('/', '-');
 
         this.router.navigate(['tracker', 'register', finalDate]);

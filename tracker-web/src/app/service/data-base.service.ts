@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import Dexie from 'dexie';
 import { audit } from 'rxjs';
+import { DateUtil } from '../util/dateUtil';
 
 @Injectable({
     providedIn: 'root',
@@ -41,6 +42,18 @@ export class DataBaseService {
 
     public async findAll(tableName: string, orderBy: string) {
         return await this.db[tableName].orderBy(orderBy).reverse().toArray();
+    }
+
+    public async findByDateRange(
+        tableName: string,
+        column: string,
+        startDate: Date,
+        endDate: Date
+    ) {
+        return await this.db[tableName]
+            .where(column)
+            .between(startDate, endDate, true, true)
+            .toArray();
     }
 
     public async findOne(tableName: string, column: string, value: string) {

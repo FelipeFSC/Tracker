@@ -12,6 +12,7 @@ export namespace TrackerModel {
         date?: Date;
         status?: Status;
         tasks?: Task[];
+        options?: { icon: string; label: string }[];
     }
 
     export interface Task {
